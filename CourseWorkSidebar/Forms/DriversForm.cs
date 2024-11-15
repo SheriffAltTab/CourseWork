@@ -50,6 +50,8 @@ namespace CourseWorkSidebar
             comboBoxSortBy.Items.Add("Прізвище");
             comboBoxSortBy.Items.Add("Дата народження");
             comboBoxSortBy.Items.Add("Дата прийняття на роботу");
+            comboBoxSortBy.Items.Add("Робочі дні");
+            comboBoxSortBy.Items.Add("Робочі райони");
             comboBoxSortBy.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxSortBy.SelectedIndex = 0;
         }
@@ -96,7 +98,9 @@ namespace CourseWorkSidebar
                     LastName = txtLastName.Text,
                     BirthDate = dtpBirthDate.Value.Date,
                     LicenseNumber = txtLicenseNumber.Text,
-                    HireDate = dtpHireDate.Value.Date
+                    HireDate = dtpHireDate.Value.Date,
+                    WorkingDays = GetCheckedDays(),
+                    WorkingAreas = GetCheckedAreas()
                 };
 
                 _driverRepository.AddDriver(driver);
@@ -113,6 +117,8 @@ namespace CourseWorkSidebar
                 selectedDriver.BirthDate = dtpBirthDate.Value.Date;
                 selectedDriver.LicenseNumber = txtLicenseNumber.Text;
                 selectedDriver.HireDate = dtpHireDate.Value.Date;
+                selectedDriver.WorkingDays = GetCheckedDays();
+                selectedDriver.WorkingAreas = GetCheckedAreas();
 
                 _driverRepository.UpdateDriver(selectedDriver);
                 LoadDrivers();
@@ -170,6 +176,12 @@ namespace CourseWorkSidebar
                 case "ID":
                     _currentDriverList = ascending ? _currentDriverList.OrderBy(d => d.DriverID).ToList() : _currentDriverList.OrderByDescending(d => d.DriverID).ToList();
                     break;
+                case "Робочі дні":
+                    _currentDriverList = ascending ? _currentDriverList.OrderBy(d => d.WorkingDays).ToList() : _currentDriverList.OrderByDescending(d => d.WorkingDays).ToList();
+                    break;
+                case "Робочі райони":
+                    _currentDriverList = ascending ? _currentDriverList.OrderBy(d => d.WorkingAreas).ToList() : _currentDriverList.OrderByDescending(d => d.WorkingAreas).ToList();
+                    break;
                 default:
                     MessageBox.Show("Невідомий критерій сортування.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -213,11 +225,13 @@ namespace CourseWorkSidebar
                 writer.WriteLine("<body>");
                 writer.WriteLine("<h1>Звіт про водіїв</h1>");
                 writer.WriteLine("<table border='1'>");
-                writer.WriteLine("<tr><th>ID</th><th>Ім'я</th><th>Прізвище</th><th>Дата народження</th><th>№ водійського посвідчення</th><th>Дата прийняття на роботу</th></tr>");
+                writer.WriteLine("<tr><th>ID</th><th>Ім'я</th><th>Прізвище</th><th>Дата народження</th><th>№ водійського посвідчення</th><th>Дата прийняття на роботу</th>" +
+                    "<th>Робочі дні</th><th>Робочі райони</th></tr>");
 
                 foreach (var driver in _currentDriverList)
                 {
-                    writer.WriteLine($"<tr><td>{driver.DriverID}</td><td>{driver.FirstName}</td><td>{driver.LastName}</td><td>{driver.BirthDate.ToShortDateString()}</td><td>{driver.LicenseNumber}</td><td>{driver.HireDate.ToShortDateString()}</td></tr>");
+                    writer.WriteLine($"<tr><td>{driver.DriverID}</td><td>{driver.FirstName}</td><td>{driver.LastName}</td><td>{driver.BirthDate.ToShortDateString()}</td>" +
+                        $"<td>{driver.LicenseNumber}</td><td>{driver.HireDate.ToShortDateString()}</td><td>{driver.WorkingDays}</td><td>{driver.WorkingAreas}</td></tr>");
                 }
 
                 writer.WriteLine("</table>");
@@ -250,13 +264,15 @@ namespace CourseWorkSidebar
                 var bf = BaseFont.CreateFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
                 var font = new iTextSharp.text.Font(bf, 12, iTextSharp.text.Font.NORMAL);
 
-                var table = new PdfPTable(6);
+                var table = new PdfPTable(8);
                 table.AddCell(new PdfPCell(new Phrase("ID", font)));
                 table.AddCell(new PdfPCell(new Phrase("Ім'я", font)));
                 table.AddCell(new PdfPCell(new Phrase("Прізвище", font)));
                 table.AddCell(new PdfPCell(new Phrase("Дата народження", font)));
                 table.AddCell(new PdfPCell(new Phrase("№ водійського посвідчення", font)));
                 table.AddCell(new PdfPCell(new Phrase("Дата прийняття на роботу", font)));
+                table.AddCell(new PdfPCell(new Phrase("Робочі дні", font)));
+                table.AddCell(new PdfPCell(new Phrase("Робочі райони", font)));
 
                 foreach (var driver in _currentDriverList)
                 {
@@ -266,6 +282,8 @@ namespace CourseWorkSidebar
                     table.AddCell(new PdfPCell(new Phrase(driver.BirthDate.ToShortDateString(), font)));
                     table.AddCell(new PdfPCell(new Phrase(driver.LicenseNumber, font)));
                     table.AddCell(new PdfPCell(new Phrase(driver.HireDate.ToShortDateString(), font)));
+                    table.AddCell(new PdfPCell(new Phrase(driver.WorkingDays, font)));
+                    table.AddCell(new PdfPCell(new Phrase(driver.WorkingAreas, font)));
                 }
 
                 document.Add(table);
@@ -289,11 +307,12 @@ namespace CourseWorkSidebar
 
             using (var writer = new StreamWriter(reportPath, false, Encoding.UTF8))
             {
-                writer.WriteLine("ID,Ім'я,Прізвище,Дата народження,№ водійського посвідчення,Дата прийняття на роботу");
+                writer.WriteLine("ID,Ім'я,Прізвище,Дата народження,№ водійського посвідчення,Дата прийняття на роботу,Робочі дні,Робочі райони");
 
                 foreach (var driver in _currentDriverList)
                 {
-                    writer.WriteLine($"{driver.DriverID},{driver.FirstName},{driver.LastName},{driver.BirthDate.ToShortDateString()},{driver.LicenseNumber},{driver.HireDate.ToShortDateString()}");
+                    writer.WriteLine($"{driver.DriverID},{driver.FirstName},{driver.LastName},{driver.BirthDate.ToShortDateString()},{driver.LicenseNumber}," +
+                        $"{driver.HireDate.ToShortDateString()},{driver.WorkingDays},{driver.WorkingAreas}");
                 }
             }
 
@@ -337,6 +356,18 @@ namespace CourseWorkSidebar
                 return false;
             }
             return true;
+        }
+
+        private string GetCheckedDays()
+        {
+            var selectedDays = clbWorkingDays.CheckedItems.Cast<string>().ToArray();
+            return string.Join(", ", selectedDays);
+        }
+
+        private string GetCheckedAreas()
+        {
+            var selectedAreas = clbWorkingAreas.CheckedItems.Cast<string>().ToArray();
+            return string.Join(", ", selectedAreas);
         }
     }
 }

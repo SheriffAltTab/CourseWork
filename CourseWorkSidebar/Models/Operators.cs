@@ -9,5 +9,6 @@ namespace CourseWorkSidebar.Models
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
         public DateTime HireDate { get; set; }
+        public string WorkingDays { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using CourseWorkSidebar.Models;
@@ -47,6 +48,19 @@ namespace CourseWorkSidebar.DataAccess
             if (vehicle != null)
             {
                 _context.Vehicles.Remove(vehicle);
+                _context.SaveChanges();
+            }
+        }
+
+        // Додано метод для оновлення інформації про останнє технічне обслуговування
+        public void UpdateVehicleServiceDetails(int vehicleId, DateTime serviceDate, string serviceDetails)
+        {
+            var vehicle = GetVehicleById(vehicleId);
+            if (vehicle != null)
+            {
+                vehicle.LastServiceDate = serviceDate;
+                vehicle.LastServiceDetails = serviceDetails;
+                _context.Entry(vehicle).State = EntityState.Modified;
                 _context.SaveChanges();
             }
         }

@@ -15,13 +15,13 @@ namespace CourseWorkSidebar
         private Button btnUpdateOperator;
         private Button btnDeleteOperator;
         private TextBox txtSearch;
-        private Button btnReturnToMain;
         private ComboBox comboBoxSortBy;
         private Button btnSortDescending;
         private Button btnSortAscending;
         private TableLayoutPanel tableLayoutPanel;
         private Button btnGenerateReport;
         private ComboBox comboBoxReportFormat;
+        private System.Windows.Forms.CheckedListBox clbWorkingDays;
 
         protected override void Dispose(bool disposing)
         {
@@ -45,12 +45,12 @@ namespace CourseWorkSidebar
             this.btnUpdateOperator = new System.Windows.Forms.Button();
             this.btnDeleteOperator = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
-            this.btnReturnToMain = new System.Windows.Forms.Button();
             this.comboBoxSortBy = new System.Windows.Forms.ComboBox();
             this.comboBoxReportFormat = new System.Windows.Forms.ComboBox();
             this.btnSortDescending = new System.Windows.Forms.Button();
             this.btnSortAscending = new System.Windows.Forms.Button();
-            this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel(); ;
+            this.clbWorkingDays = new System.Windows.Forms.CheckedListBox();
             this.btnGenerateReport = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOperators)).BeginInit();
             this.tableLayoutPanel.SuspendLayout();
@@ -146,24 +146,12 @@ namespace CourseWorkSidebar
             // 
             this.tableLayoutPanel.SetColumnSpan(this.txtSearch, 2);
             this.txtSearch.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSearch.Location = new System.Drawing.Point(642, 356);
+            this.txtSearch.Location = new System.Drawing.Point(429, 388);
             this.txtSearch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(422, 22);
+            this.txtSearch.Size = new System.Drawing.Size(420, 22);
             this.txtSearch.TabIndex = 8;
             this.txtSearch.TextChanged += new System.EventHandler(this.TxtSearch_TextChanged);
-            // 
-            // btnReturnToMain
-            // 
-            this.btnReturnToMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnReturnToMain.Location = new System.Drawing.Point(855, 420);
-            this.btnReturnToMain.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnReturnToMain.Name = "btnReturnToMain";
-            this.btnReturnToMain.Size = new System.Drawing.Size(209, 28);
-            this.btnReturnToMain.TabIndex = 14;
-            this.btnReturnToMain.Text = "Назад";
-            this.btnReturnToMain.UseVisualStyleBackColor = true;
-            this.btnReturnToMain.Click += new System.EventHandler(this.btnReturnToMain_Click);
             // 
             // comboBoxSortBy
             // 
@@ -180,7 +168,7 @@ namespace CourseWorkSidebar
             // 
             this.comboBoxReportFormat.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboBoxReportFormat.FormattingEnabled = true;
-            this.comboBoxReportFormat.Location = new System.Drawing.Point(642, 388);
+            this.comboBoxReportFormat.Location = new System.Drawing.Point(429, 420);
             this.comboBoxReportFormat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBoxReportFormat.Name = "comboBoxReportFormat";
             this.comboBoxReportFormat.Size = new System.Drawing.Size(207, 24);
@@ -223,16 +211,16 @@ namespace CourseWorkSidebar
             this.tableLayoutPanel.Controls.Add(this.txtLastName, 1, 1);
             this.tableLayoutPanel.Controls.Add(this.dtpBirthDate, 2, 1);
             this.tableLayoutPanel.Controls.Add(this.dtpHireDate, 3, 1);
+            this.tableLayoutPanel.Controls.Add(this.clbWorkingDays, 5, 1);
             this.tableLayoutPanel.Controls.Add(this.btnAddOperator, 0, 2);
             this.tableLayoutPanel.Controls.Add(this.btnUpdateOperator, 1, 2);
             this.tableLayoutPanel.Controls.Add(this.btnDeleteOperator, 2, 2);
-            this.tableLayoutPanel.Controls.Add(this.txtSearch, 3, 2);
-            this.tableLayoutPanel.Controls.Add(this.comboBoxReportFormat, 3, 3);
+            this.tableLayoutPanel.Controls.Add(this.txtSearch, 2, 3);
+            this.tableLayoutPanel.Controls.Add(this.comboBoxReportFormat, 2, 4);
             this.tableLayoutPanel.Controls.Add(this.comboBoxSortBy, 0, 3);
             this.tableLayoutPanel.Controls.Add(this.btnSortDescending, 0, 4);
             this.tableLayoutPanel.Controls.Add(this.btnSortAscending, 1, 4);
             this.tableLayoutPanel.Controls.Add(this.btnGenerateReport, 3, 4);
-            this.tableLayoutPanel.Controls.Add(this.btnReturnToMain, 4, 4);
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -243,8 +231,28 @@ namespace CourseWorkSidebar
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel.Size = new System.Drawing.Size(1067, 450);
             this.tableLayoutPanel.TabIndex = 0;
+            // 
+            // clbWorkingDays
+            // 
+            this.clbWorkingDays.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.clbWorkingDays.FormattingEnabled = true;
+            this.clbWorkingDays.Items.AddRange(new object[] {
+            "Пн",
+            "Вт",
+            "Ср",
+            "Чт",
+            "Пт",
+            "Сб",
+            "Нд"});
+            this.clbWorkingDays.Location = new System.Drawing.Point(943, 324);
+            this.clbWorkingDays.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.clbWorkingDays.Name = "clbWorkingDays";
+            this.tableLayoutPanel.SetRowSpan(this.clbWorkingDays, 4);
+            this.clbWorkingDays.Size = new System.Drawing.Size(121, 124);
+            this.clbWorkingDays.TabIndex = 17;
             // 
             // btnGenerateReport
             // 

@@ -18,19 +18,16 @@ namespace CourseWorkSidebar.DataAccess
             _context = new DatabaseContext();
         }
 
-        // Отримати всіх операторів
         public List<Operator> GetAllOperators()
         {
             return _context.Operators.ToList();
         }
 
-        // Отримати оператора за ID
         public Operator GetOperatorById(int id)
         {
             return _context.Operators.FirstOrDefault(o => o.OperatorID == id);
         }
 
-        // Додати нового оператора
         public void AddOperator(Operator @operator)
         {
             if (_context.Operators != null)
@@ -40,7 +37,6 @@ namespace CourseWorkSidebar.DataAccess
             }
         }
 
-        // Оновити інформацію про оператора
         public void UpdateOperator(Operator @operator)
         {
             if (_context.Entry(@operator) != null)
@@ -50,7 +46,6 @@ namespace CourseWorkSidebar.DataAccess
             }
         }
 
-        // Видалити оператора за ID
         public void DeleteOperator(int id)
         {
             var @operator = GetOperatorById(id);

@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Xml.Linq;
+using System.Diagnostics;
 using CourseWorkSidebar.DataAccess;
 using CourseWorkSidebar.Models;
+using System.Drawing;
 using iTextSharp.text;
+using System.Data;
 using iTextSharp.text.pdf;
+using System.Xml.Linq;
 
 namespace CourseWorkSidebar
 {
@@ -46,7 +47,8 @@ namespace CourseWorkSidebar
             comboBoxSortBy.Items.Add("Модель");
             comboBoxSortBy.Items.Add("Рік випуску");
             comboBoxSortBy.Items.Add("ID водія");
-            comboBoxSortBy.Items.Add("Assigned Master"); // Новий критерій сортування
+            comboBoxSortBy.Items.Add("Призначений майстер");
+            comboBoxSortBy.Items.Add("Дата тех. обслуговування");
             comboBoxSortBy.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxSortBy.SelectedIndex = 0;
         }
@@ -67,13 +69,13 @@ namespace CourseWorkSidebar
 
         private void SetPlaceholderTexts()
         {
-            // Setting placeholder texts
             SetPlaceholder(txtBrand, "Марка");
             SetPlaceholder(txtModel, "Модель");
             SetPlaceholder(txtYear, "Рік випуску");
             SetPlaceholder(txtLicensePlate, "Номерний знак");
             SetPlaceholder(txtDriverID, "ID водія");
             SetPlaceholder(txtAssignedMaster, "Призначений майстер");
+            SetPlaceholder(txtLastServiceDetails, "Опис останнього тех. обслуговування");
             SetPlaceholder(txtSearch, SearchPlaceholder);
         }
 
@@ -81,8 +83,6 @@ namespace CourseWorkSidebar
         {
             textBox.Text = placeholder;
             textBox.ForeColor = Color.Gray;
-
-            // Add event handlers for focus and unfocus
             textBox.Enter += (sender, e) =>
             {
                 if (textBox.Text == placeholder && textBox.ForeColor == Color.Gray)
@@ -111,7 +111,9 @@ namespace CourseWorkSidebar
                 Year = int.Parse(txtYear.Text),
                 LicensePlate = txtLicensePlate.Text,
                 DriverID = string.IsNullOrWhiteSpace(txtDriverID.Text) ? (int?)null : int.Parse(txtDriverID.Text),
-                AssignedMaster = string.IsNullOrWhiteSpace(txtAssignedMaster.Text) ? (int?)null : int.Parse(txtAssignedMaster.Text)
+                AssignedMaster = string.IsNullOrWhiteSpace(txtAssignedMaster.Text) ? (int?)null : int.Parse(txtAssignedMaster.Text),
+                LastServiceDate = dtpLastServiceDate.Value.Date,
+                LastServiceDetails = txtLastServiceDetails.Text
             };
 
             _vehiclesRepository.AddVehicle(vehicle);
@@ -128,6 +130,8 @@ namespace CourseWorkSidebar
                 selectedVehicle.LicensePlate = txtLicensePlate.Text;
                 selectedVehicle.DriverID = string.IsNullOrWhiteSpace(txtDriverID.Text) ? (int?)null : int.Parse(txtDriverID.Text);
                 selectedVehicle.AssignedMaster = string.IsNullOrWhiteSpace(txtAssignedMaster.Text) ? (int?)null : int.Parse(txtAssignedMaster.Text);
+                selectedVehicle.LastServiceDate = dtpLastServiceDate.Value.Date;
+                selectedVehicle.LastServiceDetails = txtLastServiceDetails.Text;
 
                 _vehiclesRepository.UpdateVehicle(selectedVehicle);
                 LoadVehicles();
@@ -191,6 +195,9 @@ namespace CourseWorkSidebar
                 case "Призначений майстер":
                     _currentVehicleList = ascending ? _currentVehicleList.OrderBy(v => v.AssignedMaster).ToList() : _currentVehicleList.OrderByDescending(v => v.AssignedMaster).ToList();
                     break;
+                case "Дата тех. обслуговування":
+                    _currentVehicleList = ascending ? _currentVehicleList.OrderBy(v => v.LastServiceDate).ToList() : _currentVehicleList.OrderByDescending(v => v.LastServiceDate).ToList();
+                    break;
                 default:
                     MessageBox.Show("Невідомий критерій сортування.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -237,11 +244,13 @@ namespace CourseWorkSidebar
                 writer.WriteLine("<body>");
                 writer.WriteLine("<h1>Звіт про транспортні засоби</h1>");
                 writer.WriteLine("<table border='1'>");
-                writer.WriteLine("<tr><th>ID</th><th>Марка</th><th>Модель</th><th>Рік випуску</th><th>Номерний знак</th><th>DriverID</th><th>Призначений майстер</th></tr>");
+                writer.WriteLine("<tr><th>ID</th><th>Марка</th><th>Модель</th><th>Рік випуску</th><th>Номерний знак</th><th>ID водія</th>" +
+                    "<th>Призначений майстер</th><th>Дата останнього тех. обслуговування</th><th>Опис тех. обслуговування</th></tr>");
 
                 foreach (var vehicle in _currentVehicleList)
                 {
-                    writer.WriteLine($"<tr><td>{vehicle.VehicleID}</td><td>{vehicle.Brand}</td><td>{vehicle.Model}</td><td>{vehicle.Year}</td><td>{vehicle.LicensePlate}</td><td>{vehicle.DriverID}</td><td>{vehicle.AssignedMaster}</td></tr>");
+                    writer.WriteLine($"<tr><td>{vehicle.VehicleID}</td><td>{vehicle.Brand}</td><td>{vehicle.Model}</td><td>{vehicle.Year}</td><td>{vehicle.LicensePlate}</td>" +
+                        $"<td>{vehicle.DriverID}</td><td>{vehicle.AssignedMaster}</td><td>{vehicle.LastServiceDate?.ToString("dd.MM.yyyy") ?? ""}</td><td>{vehicle.LastServiceDetails}</td></tr>");
                 }
 
                 writer.WriteLine("</table>");
@@ -272,9 +281,9 @@ namespace CourseWorkSidebar
 
                 string fontPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "arial.ttf");
                 var bf = BaseFont.CreateFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-                var font = new iTextSharp.text.Font(bf, 12, iTextSharp.text.Font.NORMAL);
+                var font = new iTextSharp.text.Font(bf, 9, iTextSharp.text.Font.NORMAL);
 
-                var table = new PdfPTable(7);
+                var table = new PdfPTable(9);
                 table.AddCell(new PdfPCell(new Phrase("ID", font)));
                 table.AddCell(new PdfPCell(new Phrase("Марка", font)));
                 table.AddCell(new PdfPCell(new Phrase("Модель", font)));
@@ -282,6 +291,8 @@ namespace CourseWorkSidebar
                 table.AddCell(new PdfPCell(new Phrase("Номерний знак", font)));
                 table.AddCell(new PdfPCell(new Phrase("ID водія", font)));
                 table.AddCell(new PdfPCell(new Phrase("Призначений майстер", font)));
+                table.AddCell(new PdfPCell(new Phrase("Дата останнього тех. обслуговування", font)));
+                table.AddCell(new PdfPCell(new Phrase("Опис тех. обслуговування", font)));
 
                 foreach (var vehicle in _currentVehicleList)
                 {
@@ -292,6 +303,8 @@ namespace CourseWorkSidebar
                     table.AddCell(new PdfPCell(new Phrase(vehicle.LicensePlate, font)));
                     table.AddCell(new PdfPCell(new Phrase(vehicle.DriverID?.ToString() ?? "", font)));
                     table.AddCell(new PdfPCell(new Phrase(vehicle.AssignedMaster?.ToString() ?? "", font)));
+                    table.AddCell(new PdfPCell(new Phrase(vehicle.LastServiceDate?.ToString("dd.MM.yyyy") ?? "", font)));
+                    table.AddCell(new PdfPCell(new Phrase(vehicle.LastServiceDetails?.ToString() ?? "", font)));
                 }
 
                 document.Add(table);
@@ -315,10 +328,11 @@ namespace CourseWorkSidebar
 
             using (var writer = new StreamWriter(reportPath, false, Encoding.UTF8))
             {
-                writer.WriteLine("ID,Марка,Модель,Рік випуску,Номерний знак,ID водія,Призначений майстер");
+                writer.WriteLine("ID,Марка,Модель,Рік випуску,Номерний знак,ID водія,Призначений майстер,Дата останнього тех. обслуговування,Опис тех. обслуговування");
                 foreach (var vehicle in _currentVehicleList)
                 {
-                    writer.WriteLine($"{vehicle.VehicleID},{vehicle.Brand},{vehicle.Model},{vehicle.Year},{vehicle.LicensePlate},{vehicle.DriverID},{vehicle.AssignedMaster}");
+                    writer.WriteLine($"{vehicle.VehicleID},{vehicle.Brand},{vehicle.Model},{vehicle.Year},{vehicle.LicensePlate},{vehicle.DriverID},{vehicle.AssignedMaster}," +
+                        $"{vehicle.LastServiceDate?.ToString("dd.MM.yyyy") ?? ""},{vehicle.LastServiceDetails}");
                 }
             }
 
@@ -352,10 +366,10 @@ namespace CourseWorkSidebar
                 v.Model.ToLower().Contains(searchValue) ||
                 v.LicensePlate.ToLower().Contains(searchValue) ||
                 v.DriverID.ToString().Contains(searchValue) ||
-                v.AssignedMaster.ToString().Contains(searchValue)
+                v.AssignedMaster.ToString().Contains(searchValue) ||
+                v.LastServiceDetails.ToLower().Contains(searchValue)
             ).ToList();
             dataGridViewVehicles.DataSource = _currentVehicleList;
         }
-
     }
 }

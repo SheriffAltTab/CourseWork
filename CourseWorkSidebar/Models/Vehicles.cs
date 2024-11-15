@@ -1,4 +1,6 @@
-﻿namespace CourseWorkSidebar.Models
+﻿using System;
+
+namespace CourseWorkSidebar.Models
 {
     public class Vehicle
     {
@@ -7,11 +9,9 @@
         public string Brand { get; set; }
         public string Model { get; set; }
         public int Year { get; set; }
-
-        // Посилання на водія
         public int? DriverID { get; set; }
-
-        // Нове посилання на майстра, який обслуговує автомобіль
         public int? AssignedMaster { get; set; }
+        public DateTime? LastServiceDate { get; set; }
+        public string LastServiceDetails { get; set; }
     }
 }

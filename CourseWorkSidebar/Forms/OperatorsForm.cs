@@ -11,6 +11,7 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Text;
 using System.Xml.Linq;
+using System.Diagnostics.Metrics;
 
 namespace CourseWorkSidebar
 {
@@ -50,6 +51,7 @@ namespace CourseWorkSidebar
             comboBoxSortBy.Items.Add("Прізвище");
             comboBoxSortBy.Items.Add("Дата народження");
             comboBoxSortBy.Items.Add("Дата прийняття на роботу");
+            comboBoxSortBy.Items.Add("Робочі дні");
             comboBoxSortBy.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxSortBy.SelectedIndex = 0;
         }
@@ -103,7 +105,8 @@ namespace CourseWorkSidebar
                     FirstName = txtFirstName.Text,
                     LastName = txtLastName.Text,
                     BirthDate = dtpBirthDate.Value.Date,
-                    HireDate = dtpHireDate.Value.Date
+                    HireDate = dtpHireDate.Value.Date,
+                    WorkingDays = GetCheckedDays()
                 };
 
                 _operatorsRepository.AddOperator(newOperator);
@@ -119,6 +122,7 @@ namespace CourseWorkSidebar
                 selectedOperator.LastName = txtLastName.Text;
                 selectedOperator.BirthDate = dtpBirthDate.Value.Date;
                 selectedOperator.HireDate = dtpHireDate.Value.Date;
+                selectedOperator.WorkingDays = GetCheckedDays();
 
                 _operatorsRepository.UpdateOperator(selectedOperator);
                 LoadOperators();
@@ -175,6 +179,9 @@ namespace CourseWorkSidebar
                     break;
                 case "ID":
                     _currentOperatorList = ascending ? _currentOperatorList.OrderBy(o => o.OperatorID).ToList() : _currentOperatorList.OrderByDescending(o => o.OperatorID).ToList();
+                    break;
+                case "Робочі дні":
+                    _currentOperatorList = ascending ? _currentOperatorList.OrderBy(o => o.WorkingDays).ToList() : _currentOperatorList.OrderByDescending(o => o.WorkingDays).ToList();
                     break;
                 default:
                     MessageBox.Show("Невідомий критерій сортування.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -247,11 +254,12 @@ namespace CourseWorkSidebar
                 writer.WriteLine("<body>");
                 writer.WriteLine("<h1>Звіт про операторів</h1>");
                 writer.WriteLine("<table border='1'>");
-                writer.WriteLine("<tr><th>ID</th><th>Ім'я</th><th>Прізвище</th><th>Дата народження</th><th>Дата прийняття на роботу</th></tr>");
+                writer.WriteLine("<tr><th>ID</th><th>Ім'я</th><th>Прізвище</th><th>Дата народження</th><th>Дата прийняття на роботу</th><th>Робочі дні</th></tr>");
 
                 foreach (var operatorData in _currentOperatorList)
                 {
-                    writer.WriteLine($"<tr><td>{operatorData.OperatorID}</td><td>{operatorData.FirstName}</td><td>{operatorData.LastName}</td><td>{operatorData.BirthDate.ToShortDateString()}</td><td>{operatorData.HireDate.ToShortDateString()}</td></tr>");
+                    writer.WriteLine($"<tr><td>{operatorData.OperatorID}</td><td>{operatorData.FirstName}</td><td>{operatorData.LastName}</td>" +
+                        $"<td>{operatorData.BirthDate.ToShortDateString()}</td><td>{operatorData.HireDate.ToShortDateString()}</td><td>{operatorData.WorkingDays}</td></tr>");
                 }
 
                 writer.WriteLine("</table>");
@@ -284,12 +292,13 @@ namespace CourseWorkSidebar
                 var bf = BaseFont.CreateFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
                 var font = new iTextSharp.text.Font(bf, 12, iTextSharp.text.Font.NORMAL);
 
-                var table = new PdfPTable(5);
+                var table = new PdfPTable(6);
                 table.AddCell(new PdfPCell(new Phrase("ID", font)));
                 table.AddCell(new PdfPCell(new Phrase("Ім'я", font)));
                 table.AddCell(new PdfPCell(new Phrase("Прізвище", font)));
                 table.AddCell(new PdfPCell(new Phrase("Дата народження", font)));
                 table.AddCell(new PdfPCell(new Phrase("Дата прийняття на роботу", font)));
+                table.AddCell(new PdfPCell(new Phrase("Робочі дні", font)));
 
                 foreach (var operatorData in _currentOperatorList)
                 {
@@ -298,6 +307,7 @@ namespace CourseWorkSidebar
                     table.AddCell(new PdfPCell(new Phrase(operatorData.LastName, font)));
                     table.AddCell(new PdfPCell(new Phrase(operatorData.BirthDate.ToShortDateString(), font)));
                     table.AddCell(new PdfPCell(new Phrase(operatorData.HireDate.ToShortDateString(), font)));
+                    table.AddCell(new PdfPCell(new Phrase(operatorData.WorkingDays, font)));
                 }
 
                 document.Add(table);
@@ -324,7 +334,8 @@ namespace CourseWorkSidebar
                 writer.WriteLine("ID,Ім'я,Прізвище,Дата народження,Дата прийняття на роботу");
                 foreach (var operatorData in _currentOperatorList)
                 {
-                    writer.WriteLine($"{operatorData.OperatorID},{operatorData.FirstName},{operatorData.LastName},{operatorData.BirthDate.ToShortDateString()},{operatorData.HireDate.ToShortDateString()}");
+                    writer.WriteLine($"{operatorData.OperatorID},{operatorData.FirstName},{operatorData.LastName},{operatorData.BirthDate.ToShortDateString()}," +
+                        $"{operatorData.HireDate.ToShortDateString()},{operatorData.WorkingDays}");
                 }
             }
 
@@ -342,6 +353,12 @@ namespace CourseWorkSidebar
             {
                 MessageBox.Show("Не вдалося знайти звіт.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private string GetCheckedDays()
+        {
+            var selectedDays = clbWorkingDays.CheckedItems.Cast<string>().ToArray();
+            return string.Join(", ", selectedDays);
         }
     }
 }

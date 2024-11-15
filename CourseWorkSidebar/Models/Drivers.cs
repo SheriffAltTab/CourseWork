@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using System;
 
 namespace CourseWorkSidebar.Models
 {
@@ -11,5 +10,7 @@ namespace CourseWorkSidebar.Models
         public DateTime BirthDate { get; set; }
         public string LicenseNumber { get; set; }
         public DateTime HireDate { get; set; }
+        public string WorkingDays { get; set; }
+        public string WorkingAreas { get; set; }
     }
 }

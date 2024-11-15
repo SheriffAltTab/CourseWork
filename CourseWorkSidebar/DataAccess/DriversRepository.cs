@@ -50,5 +50,11 @@ namespace CourseWorkSidebar.DataAccess
                 _context.SaveChanges();
             }
         }
+
+        // Новий метод для фільтрації водіїв за районами роботи
+        public List<Driver> GetDriversByWorkingArea(string workingArea)
+        {
+            return _context.Drivers.Where(d => d.WorkingAreas.Contains(workingArea)).ToList();
+        }
     }
 }

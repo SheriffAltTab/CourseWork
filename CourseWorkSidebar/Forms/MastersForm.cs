@@ -11,6 +11,7 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Text;
 using System.Xml.Linq;
+using static ReaLTaiizor.Controls.ExtendedPanel;
 
 namespace CourseWorkSidebar
 {
@@ -26,15 +27,12 @@ namespace CourseWorkSidebar
             this.Load += MastersForm_Load;
             _masterRepository = new MastersRepository();
             txtSearch.TextChanged += TxtSearch_TextChanged;
-
-            // Підключення обробників подій для кнопок
             btnAddMaster.Click += btnAddMaster_Click;
             btnUpdateMaster.Click += btnUpdateMaster_Click;
             btnDeleteMaster.Click += btnDeleteMaster_Click;
             btnSortAscending.Click += btnSortAscending_Click;
             btnSortDescending.Click += btnSortDescending_Click;
             btnGenerateReport.Click += btnGenerateReport_Click;
-            btnReturnToMain.Click += btnReturnToMain_Click;
         }
 
         private void MastersForm_Load(object sender, EventArgs e)
@@ -60,6 +58,7 @@ namespace CourseWorkSidebar
             comboBoxSortBy.Items.Add("Дата народження");
             comboBoxSortBy.Items.Add("Дата прийняття на роботу");
             comboBoxSortBy.Items.Add("Спеціальність");
+            comboBoxSortBy.Items.Add("Робочі дні");
             comboBoxSortBy.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxSortBy.SelectedIndex = 0;
         }
@@ -75,7 +74,6 @@ namespace CourseWorkSidebar
 
         private void SetPlaceholderTexts()
         {
-            // Налаштування тексту заповнювача для кожного TextBox
             SetPlaceholder(txtFirstName, "Ім'я");
             SetPlaceholder(txtLastName, "Прізвище");
             SetPlaceholder(txtSpecialty, "Спеціальність");
@@ -86,8 +84,6 @@ namespace CourseWorkSidebar
         {
             textBox.Text = placeholder;
             textBox.ForeColor = Color.Gray;
-
-            // Додаємо обробники подій для фокусу і втрати фокусу
             textBox.Enter += (sender, e) =>
             {
                 if (textBox.Text == placeholder && textBox.ForeColor == Color.Gray)
@@ -117,7 +113,8 @@ namespace CourseWorkSidebar
                     LastName = txtLastName.Text,
                     BirthDate = dtpBirthDate.Value.Date,
                     HireDate = dtpHireDate.Value.Date,
-                    Specialty = txtSpecialty.Text
+                    Specialty = txtSpecialty.Text,
+                    WorkingDays = GetCheckedDays()
                 };
 
                 _masterRepository.AddMaster(master);
@@ -134,6 +131,7 @@ namespace CourseWorkSidebar
                 selectedMaster.BirthDate = dtpBirthDate.Value.Date;
                 selectedMaster.HireDate = dtpHireDate.Value.Date;
                 selectedMaster.Specialty = txtSpecialty.Text;
+                selectedMaster.WorkingDays = GetCheckedDays();
 
                 _masterRepository.UpdateMaster(selectedMaster);
                 LoadMasters();
@@ -193,6 +191,9 @@ namespace CourseWorkSidebar
                     break;
                 case "ID":
                     _currentMasterList = ascending ? _currentMasterList.OrderBy(m => m.MasterID).ToList() : _currentMasterList.OrderByDescending(m => m.MasterID).ToList();
+                    break;
+                case "Робочі дні":
+                    _currentMasterList = ascending ? _currentMasterList.OrderBy(m => m.WorkingDays).ToList() : _currentMasterList.OrderByDescending(m => m.WorkingDays).ToList();
                     break;
                 default:
                     MessageBox.Show("Невідомий критерій сортування.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -256,11 +257,12 @@ namespace CourseWorkSidebar
                 writer.WriteLine("<body>");
                 writer.WriteLine("<h1>Звіт про майстрів</h1>");
                 writer.WriteLine("<table border='1'>");
-                writer.WriteLine("<tr><th>ID</th><th>Ім'я</th><th>Прізвище</th><th>Дата народження</th><th>Спеціальність</th><th>Дата прийняття на роботу</th></tr>");
+                writer.WriteLine("<tr><th>ID</th><th>Ім'я</th><th>Прізвище</th><th>Дата народження</th><th>Спеціальність</th><th>Дата прийняття на роботу</th><th>Робочі дні</th></tr>");
 
                 foreach (var master in _currentMasterList)
                 {
-                    writer.WriteLine($"<tr><td>{master.MasterID}</td><td>{master.FirstName}</td><td>{master.LastName}</td><td>{master.BirthDate.ToShortDateString()}</td><td>{master.Specialty}</td><td>{master.HireDate.ToShortDateString()}</td></tr>");
+                    writer.WriteLine($"<tr><td>{master.MasterID}</td><td>{master.FirstName}</td><td>{master.LastName}</td><td>{master.BirthDate.ToShortDateString()}</td>" +
+                        $"<td>{master.Specialty}</td><td>{master.HireDate.ToShortDateString()}</td><td>{master.WorkingDays}</td></tr>");
                 }
 
                 writer.WriteLine("</table>");
@@ -293,13 +295,14 @@ namespace CourseWorkSidebar
                 var bf = BaseFont.CreateFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
                 var font = new iTextSharp.text.Font(bf, 12, iTextSharp.text.Font.NORMAL);
 
-                var table = new PdfPTable(6);
+                var table = new PdfPTable(7);
                 table.AddCell(new PdfPCell(new Phrase("ID", font)));
                 table.AddCell(new PdfPCell(new Phrase("Ім'я", font)));
                 table.AddCell(new PdfPCell(new Phrase("Прізвище", font)));
                 table.AddCell(new PdfPCell(new Phrase("Дата народження", font)));
                 table.AddCell(new PdfPCell(new Phrase("Спеціальність", font)));
                 table.AddCell(new PdfPCell(new Phrase("Дата прийняття на роботу", font)));
+                table.AddCell(new PdfPCell(new Phrase("Робочі дні", font)));
 
                 foreach (var master in _currentMasterList)
                 {
@@ -309,6 +312,7 @@ namespace CourseWorkSidebar
                     table.AddCell(new PdfPCell(new Phrase(master.BirthDate.ToShortDateString(), font)));
                     table.AddCell(new PdfPCell(new Phrase(master.Specialty, font)));
                     table.AddCell(new PdfPCell(new Phrase(master.HireDate.ToShortDateString(), font)));
+                    table.AddCell(new PdfPCell(new Phrase(master.WorkingDays, font)));
                 }
 
                 document.Add(table);
@@ -332,10 +336,11 @@ namespace CourseWorkSidebar
 
             using (var writer = new StreamWriter(reportPath, false, Encoding.UTF8))
             {
-                writer.WriteLine("ID,Ім'я,Прізвище,Дата народження,Спеціальність,Дата прийняття на роботу");
+                writer.WriteLine("ID,Ім'я,Прізвище,Дата народження,Спеціальність,Дата прийняття на роботу,Робочі дні");
                 foreach (var master in _currentMasterList)
                 {
-                    writer.WriteLine($"{master.MasterID},{master.FirstName},{master.LastName},{master.BirthDate.ToShortDateString()},{master.Specialty},{master.HireDate.ToShortDateString()}");
+                    writer.WriteLine($"{master.MasterID},{master.FirstName},{master.LastName},{master.BirthDate.ToShortDateString()},{master.Specialty}," +
+                        $"{master.HireDate.ToShortDateString()},{master.WorkingDays}");
                 }
             }
 
@@ -363,6 +368,12 @@ namespace CourseWorkSidebar
                 return false;
             }
             return true;
+        }
+
+        private string GetCheckedDays()
+        {
+            var selectedDays = clbWorkingDays.CheckedItems.Cast<string>().ToArray();
+            return string.Join(", ", selectedDays);
         }
     }
 }

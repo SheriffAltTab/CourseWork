@@ -158,6 +158,12 @@
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MastersForm.resx">
+      <DependentUpon>MastersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OperatorsForm.resx">
+      <DependentUpon>OperatorsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\VehiclesForm.resx">
       <DependentUpon>VehiclesForm.cs</DependentUpon>
     </EmbeddedResource>
