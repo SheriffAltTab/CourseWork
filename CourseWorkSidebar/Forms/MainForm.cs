@@ -49,10 +49,6 @@ namespace CourseWorkSidebar
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-        }
-
         private void InitializeLogin()
         {
             // Додаємо логіку для кнопок входу та реєстрації
