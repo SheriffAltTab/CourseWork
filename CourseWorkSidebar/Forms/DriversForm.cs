@@ -18,6 +18,7 @@ namespace CourseWorkSidebar
     {
         private readonly DriversRepository _driverRepository;
         private List<Driver> _currentDriverList = new List<Driver>();
+        private const string SearchPlaceholder = "Пошук";
 
         public DriversForm()
         {
@@ -33,7 +34,7 @@ namespace CourseWorkSidebar
             InitializeSortOptions();
             SetPlaceholderTexts();
             dataGridViewDrivers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            comboBoxReportFormat.SelectedIndex = 0; // Set default format
+            comboBoxReportFormat.SelectedIndex = 0;
         }
 
         private void LoadDrivers()
@@ -58,6 +59,7 @@ namespace CourseWorkSidebar
             SetPlaceholder(txtFirstName, "Ім'я");
             SetPlaceholder(txtLastName, "Прізвище");
             SetPlaceholder(txtLicenseNumber, "№ водійського посвідчення");
+            SetPlaceholder(txtSearch, SearchPlaceholder);
         }
 
         private void SetPlaceholder(TextBox textBox, string placeholder)
@@ -195,7 +197,7 @@ namespace CourseWorkSidebar
 
         private void GenerateDriverReportHtml()
         {
-            var reportDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports");
+            var reportDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "Reports");
             var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
             var reportPath = Path.Combine(reportDirectory, $"DriverReport_{timestamp}.html");
 
@@ -229,7 +231,7 @@ namespace CourseWorkSidebar
 
         private void GenerateDriverReportPdf()
         {
-            var reportDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports");
+            var reportDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "Reports");
             var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
             var reportPath = Path.Combine(reportDirectory, $"DriverReport_{timestamp}.pdf");
 
@@ -276,7 +278,7 @@ namespace CourseWorkSidebar
 
         private void GenerateDriverReportCsv()
         {
-            var reportDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports");
+            var reportDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "Reports");
             var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
             var reportPath = Path.Combine(reportDirectory, $"DriverReport_{timestamp}.csv");
 
@@ -313,6 +315,12 @@ namespace CourseWorkSidebar
 
         private void TxtSearch_TextChanged(object sender, EventArgs e)
         {
+            if (txtSearch.Text == SearchPlaceholder)
+            {
+                LoadDrivers();
+                return;
+            }
+
             var searchValue = txtSearch.Text.ToLower();
             _currentDriverList = _driverRepository.GetAllDrivers().Where(d =>
                 d.FirstName.ToLower().Contains(searchValue) ||

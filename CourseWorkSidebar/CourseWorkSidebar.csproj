@@ -152,8 +152,14 @@
     <Compile Include="Models\Vehicles.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\DriversForm.resx">
+      <DependentUpon>DriversForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\VehiclesForm.resx">
+      <DependentUpon>VehiclesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -182,6 +188,17 @@
     <Folder Include="Reports\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Configuration\Auth.sql" />
+    <Content Include="Configuration\CreateDB.sql" />
+    <Content Include="Configuration\Icons\Drivers.png" />
+    <Content Include="Configuration\Icons\Login.png" />
+    <Content Include="Configuration\Icons\Logout.png" />
+    <Content Include="Configuration\Icons\Master.png" />
+    <Content Include="Configuration\Icons\Menu.png" />
+    <Content Include="Configuration\Icons\Operator.png" />
+    <Content Include="Configuration\Icons\Personnel.png" />
+    <Content Include="Configuration\Icons\Signup.png" />
+    <Content Include="Configuration\Icons\Vehicle.png" />
     <Content Include="ILLink\ILLink.Descriptors.LibraryBuild.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -18,6 +18,7 @@ namespace CourseWorkSidebar
     {
         private readonly OperatorsRepository _operatorsRepository;
         private List<Operator> _currentOperatorList = new List<Operator>();
+        private const string SearchPlaceholder = "Пошук";
 
         public OperatorsForm()
         {
@@ -66,6 +67,7 @@ namespace CourseWorkSidebar
         {
             SetPlaceholder(txtFirstName, "Ім'я");
             SetPlaceholder(txtLastName, "Прізвище");
+            SetPlaceholder(txtSearch, SearchPlaceholder);
         }
 
         private void SetPlaceholder(TextBox textBox, string placeholder)
@@ -184,6 +186,12 @@ namespace CourseWorkSidebar
 
         private void TxtSearch_TextChanged(object sender, EventArgs e)
         {
+            if (txtSearch.Text == SearchPlaceholder)
+            {
+                LoadOperators();
+                return;
+            }
+
             var searchValue = txtSearch.Text.ToLower();
             _currentOperatorList = _operatorsRepository.GetAllOperators().Where(o =>
                 o.FirstName.ToLower().Contains(searchValue) ||
@@ -223,7 +231,7 @@ namespace CourseWorkSidebar
 
         private void GenerateOperatorReportHtml()
         {
-            var reportDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports");
+            var reportDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "Reports");
             var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
             var reportPath = Path.Combine(reportDirectory, $"OperatorReport_{timestamp}.html");
 
@@ -257,7 +265,7 @@ namespace CourseWorkSidebar
 
         private void GenerateOperatorReportPdf()
         {
-            var reportDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports");
+            var reportDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "Reports");
             var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
             var reportPath = Path.Combine(reportDirectory, $"OperatorReport_{timestamp}.pdf");
 
@@ -302,7 +310,7 @@ namespace CourseWorkSidebar
 
         private void GenerateOperatorReportCsv()
         {
-            var reportDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports");
+            var reportDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "Reports");
             var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
             var reportPath = Path.Combine(reportDirectory, $"OperatorReport_{timestamp}.csv");
 

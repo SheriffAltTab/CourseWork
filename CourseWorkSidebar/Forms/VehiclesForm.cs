@@ -18,6 +18,7 @@ namespace CourseWorkSidebar
     {
         private readonly VehiclesRepository _vehiclesRepository;
         private List<Vehicle> _currentVehicleList;
+        private const string SearchPlaceholder = "Пошук";
 
         public VehiclesForm()
         {
@@ -73,6 +74,7 @@ namespace CourseWorkSidebar
             SetPlaceholder(txtLicensePlate, "Номерний знак");
             SetPlaceholder(txtDriverID, "ID водія");
             SetPlaceholder(txtAssignedMaster, "Призначений майстер");
+            SetPlaceholder(txtSearch, SearchPlaceholder);
         }
 
         private void SetPlaceholder(TextBox textBox, string placeholder)
@@ -219,7 +221,7 @@ namespace CourseWorkSidebar
 
         private void GenerateVehicleReportHtml()
         {
-            var reportDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports");
+            var reportDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "Reports");
             var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
             var reportPath = Path.Combine(reportDirectory, $"VehicleReport_{timestamp}.html");
 
@@ -253,7 +255,7 @@ namespace CourseWorkSidebar
 
         private void GenerateVehicleReportPdf()
         {
-            var reportDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports");
+            var reportDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "Reports");
             var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
             var reportPath = Path.Combine(reportDirectory, $"VehicleReport_{timestamp}.pdf");
 
@@ -302,7 +304,7 @@ namespace CourseWorkSidebar
 
         private void GenerateVehicleReportCsv()
         {
-            var reportDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports");
+            var reportDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "Reports");
             var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
             var reportPath = Path.Combine(reportDirectory, $"VehicleReport_{timestamp}.csv");
 
@@ -338,6 +340,12 @@ namespace CourseWorkSidebar
 
         private void TxtSearch_TextChanged(object sender, EventArgs e)
         {
+            if (txtSearch.Text == SearchPlaceholder)
+            {
+                LoadVehicles();
+                return;
+            }
+
             var searchValue = txtSearch.Text.ToLower();
             _currentVehicleList = _vehiclesRepository.GetAllVehicles().Where(v =>
                 v.Brand.ToLower().Contains(searchValue) ||

@@ -394,7 +394,7 @@ namespace CourseWorkSidebar
             // 
             this.txtPassword.Location = new System.Drawing.Point(472, 262);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.PasswordChar = '*';
+            //this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(441, 22);
             this.txtPassword.TabIndex = 2;
             // 
@@ -419,6 +419,7 @@ namespace CourseWorkSidebar
             this.IsMdiContainer = true;
             this.Name = "MainForm";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnHam)).EndInit();

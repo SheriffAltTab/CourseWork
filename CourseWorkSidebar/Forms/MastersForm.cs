@@ -18,6 +18,7 @@ namespace CourseWorkSidebar
     {
         private readonly MastersRepository _masterRepository;
         private List<Master> _currentMasterList = new List<Master>();
+        private const string SearchPlaceholder = "Пошук";
 
         public MastersForm()
         {
@@ -78,6 +79,7 @@ namespace CourseWorkSidebar
             SetPlaceholder(txtFirstName, "Ім'я");
             SetPlaceholder(txtLastName, "Прізвище");
             SetPlaceholder(txtSpecialty, "Спеціальність");
+            SetPlaceholder(txtSearch, SearchPlaceholder);
         }
 
         private void SetPlaceholder(TextBox textBox, string placeholder)
@@ -202,6 +204,12 @@ namespace CourseWorkSidebar
 
         private void TxtSearch_TextChanged(object sender, EventArgs e)
         {
+            if (txtSearch.Text == SearchPlaceholder)
+            {
+                LoadMasters();
+                return;
+            }
+
             var searchValue = txtSearch.Text.ToLower();
             _currentMasterList = _masterRepository.GetAllMasters().Where(m =>
                 m.FirstName.ToLower().Contains(searchValue) ||
@@ -232,7 +240,7 @@ namespace CourseWorkSidebar
 
         private void GenerateMasterReportHtml()
         {
-            var reportDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports");
+            var reportDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "Reports");
             var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
             var reportPath = Path.Combine(reportDirectory, $"MasterReport_{timestamp}.html");
 
@@ -266,7 +274,7 @@ namespace CourseWorkSidebar
 
         private void GenerateMasterReportPdf()
         {
-            var reportDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports");
+            var reportDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "Reports");
             var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
             var reportPath = Path.Combine(reportDirectory, $"MasterReport_{timestamp}.pdf");
 
@@ -313,7 +321,7 @@ namespace CourseWorkSidebar
 
         private void GenerateMasterReportCsv()
         {
-            var reportDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports");
+            var reportDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "Reports");
             var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
             var reportPath = Path.Combine(reportDirectory, $"MasterReport_{timestamp}.csv");
 

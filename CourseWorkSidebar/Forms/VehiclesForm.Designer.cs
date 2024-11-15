@@ -27,7 +27,7 @@ namespace CourseWorkSidebar
             this.txtYear = new System.Windows.Forms.TextBox();
             this.txtLicensePlate = new System.Windows.Forms.TextBox();
             this.txtDriverID = new System.Windows.Forms.TextBox();
-            this.txtAssignedMaster = new System.Windows.Forms.TextBox(); // Нове текстове поле для AssignedMaster
+            this.txtAssignedMaster = new System.Windows.Forms.TextBox();
             this.btnAddVehicle = new System.Windows.Forms.Button();
             this.btnUpdateVehicle = new System.Windows.Forms.Button();
             this.btnDeleteVehicle = new System.Windows.Forms.Button();
@@ -62,52 +62,52 @@ namespace CourseWorkSidebar
             this.txtBrand.Location = new System.Drawing.Point(3, 324);
             this.txtBrand.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBrand.Name = "txtBrand";
-            this.txtBrand.Size = new System.Drawing.Size(207, 22);
+            this.txtBrand.Size = new System.Drawing.Size(206, 22);
             this.txtBrand.TabIndex = 1;
             // 
             // txtModel
             // 
             this.txtModel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtModel.Location = new System.Drawing.Point(216, 324);
+            this.txtModel.Location = new System.Drawing.Point(215, 324);
             this.txtModel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtModel.Name = "txtModel";
-            this.txtModel.Size = new System.Drawing.Size(207, 22);
+            this.txtModel.Size = new System.Drawing.Size(206, 22);
             this.txtModel.TabIndex = 2;
             // 
             // txtYear
             // 
             this.txtYear.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtYear.Location = new System.Drawing.Point(429, 324);
+            this.txtYear.Location = new System.Drawing.Point(427, 324);
             this.txtYear.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtYear.Name = "txtYear";
-            this.txtYear.Size = new System.Drawing.Size(207, 22);
+            this.txtYear.Size = new System.Drawing.Size(206, 22);
             this.txtYear.TabIndex = 3;
             // 
             // txtLicensePlate
             // 
             this.txtLicensePlate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtLicensePlate.Location = new System.Drawing.Point(642, 324);
+            this.txtLicensePlate.Location = new System.Drawing.Point(639, 324);
             this.txtLicensePlate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtLicensePlate.Name = "txtLicensePlate";
-            this.txtLicensePlate.Size = new System.Drawing.Size(207, 22);
+            this.txtLicensePlate.Size = new System.Drawing.Size(206, 22);
             this.txtLicensePlate.TabIndex = 4;
             // 
             // txtDriverID
             // 
             this.txtDriverID.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtDriverID.Location = new System.Drawing.Point(855, 324);
+            this.txtDriverID.Location = new System.Drawing.Point(851, 324);
             this.txtDriverID.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtDriverID.Name = "txtDriverID";
-            this.txtDriverID.Size = new System.Drawing.Size(207, 22);
+            this.txtDriverID.Size = new System.Drawing.Size(206, 22);
             this.txtDriverID.TabIndex = 5;
             // 
             // txtAssignedMaster
             // 
             this.txtAssignedMaster.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtAssignedMaster.Location = new System.Drawing.Point(1068, 324);
+            this.txtAssignedMaster.Location = new System.Drawing.Point(1063, 324);
             this.txtAssignedMaster.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtAssignedMaster.Name = "txtAssignedMaster";
-            this.txtAssignedMaster.Size = new System.Drawing.Size(207, 22);
+            this.txtAssignedMaster.Size = new System.Drawing.Size(208, 22);
             this.txtAssignedMaster.TabIndex = 6;
             // 
             // btnAddVehicle
@@ -116,7 +116,7 @@ namespace CourseWorkSidebar
             this.btnAddVehicle.Location = new System.Drawing.Point(3, 356);
             this.btnAddVehicle.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnAddVehicle.Name = "btnAddVehicle";
-            this.btnAddVehicle.Size = new System.Drawing.Size(207, 28);
+            this.btnAddVehicle.Size = new System.Drawing.Size(206, 28);
             this.btnAddVehicle.TabIndex = 7;
             this.btnAddVehicle.Text = "Додати автомобіль";
             this.btnAddVehicle.Click += new System.EventHandler(this.btnAddVehicle_Click);
@@ -124,10 +124,10 @@ namespace CourseWorkSidebar
             // btnUpdateVehicle
             // 
             this.btnUpdateVehicle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnUpdateVehicle.Location = new System.Drawing.Point(216, 356);
+            this.btnUpdateVehicle.Location = new System.Drawing.Point(215, 356);
             this.btnUpdateVehicle.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnUpdateVehicle.Name = "btnUpdateVehicle";
-            this.btnUpdateVehicle.Size = new System.Drawing.Size(207, 28);
+            this.btnUpdateVehicle.Size = new System.Drawing.Size(206, 28);
             this.btnUpdateVehicle.TabIndex = 8;
             this.btnUpdateVehicle.Text = "Оновити автомобіль";
             this.btnUpdateVehicle.Click += new System.EventHandler(this.btnUpdateVehicle_Click);
@@ -135,10 +135,10 @@ namespace CourseWorkSidebar
             // btnDeleteVehicle
             // 
             this.btnDeleteVehicle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnDeleteVehicle.Location = new System.Drawing.Point(429, 356);
+            this.btnDeleteVehicle.Location = new System.Drawing.Point(427, 356);
             this.btnDeleteVehicle.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnDeleteVehicle.Name = "btnDeleteVehicle";
-            this.btnDeleteVehicle.Size = new System.Drawing.Size(207, 28);
+            this.btnDeleteVehicle.Size = new System.Drawing.Size(206, 28);
             this.btnDeleteVehicle.TabIndex = 9;
             this.btnDeleteVehicle.Text = "Видалити автомобіль";
             this.btnDeleteVehicle.Click += new System.EventHandler(this.btnDeleteVehicle_Click);
@@ -147,19 +147,19 @@ namespace CourseWorkSidebar
             // 
             this.tableLayoutPanel.SetColumnSpan(this.txtSearch, 2);
             this.txtSearch.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSearch.Location = new System.Drawing.Point(642, 356);
+            this.txtSearch.Location = new System.Drawing.Point(851, 356);
             this.txtSearch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(422, 22);
+            this.txtSearch.Size = new System.Drawing.Size(420, 22);
             this.txtSearch.TabIndex = 10;
             // 
             // btnReturnToMain
             // 
             this.btnReturnToMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnReturnToMain.Location = new System.Drawing.Point(1068, 420);
+            this.btnReturnToMain.Location = new System.Drawing.Point(1063, 420);
             this.btnReturnToMain.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnReturnToMain.Name = "btnReturnToMain";
-            this.btnReturnToMain.Size = new System.Drawing.Size(207, 28);
+            this.btnReturnToMain.Size = new System.Drawing.Size(208, 28);
             this.btnReturnToMain.TabIndex = 15;
             this.btnReturnToMain.Text = "Назад";
             this.btnReturnToMain.Click += new System.EventHandler(this.btnReturnToMain_Click);
@@ -171,7 +171,7 @@ namespace CourseWorkSidebar
             this.comboBoxSortBy.Location = new System.Drawing.Point(3, 388);
             this.comboBoxSortBy.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBoxSortBy.Name = "comboBoxSortBy";
-            this.comboBoxSortBy.Size = new System.Drawing.Size(420, 24);
+            this.comboBoxSortBy.Size = new System.Drawing.Size(418, 24);
             this.comboBoxSortBy.TabIndex = 16;
             // 
             // btnSortAscending
@@ -180,7 +180,7 @@ namespace CourseWorkSidebar
             this.btnSortAscending.Location = new System.Drawing.Point(3, 420);
             this.btnSortAscending.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSortAscending.Name = "btnSortAscending";
-            this.btnSortAscending.Size = new System.Drawing.Size(207, 28);
+            this.btnSortAscending.Size = new System.Drawing.Size(206, 28);
             this.btnSortAscending.TabIndex = 13;
             this.btnSortAscending.Text = "Сортувати ↑";
             this.btnSortAscending.Click += new System.EventHandler(this.btnSortAscending_Click);
@@ -188,10 +188,10 @@ namespace CourseWorkSidebar
             // btnSortDescending
             // 
             this.btnSortDescending.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnSortDescending.Location = new System.Drawing.Point(216, 420);
+            this.btnSortDescending.Location = new System.Drawing.Point(215, 420);
             this.btnSortDescending.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSortDescending.Name = "btnSortDescending";
-            this.btnSortDescending.Size = new System.Drawing.Size(207, 28);
+            this.btnSortDescending.Size = new System.Drawing.Size(206, 28);
             this.btnSortDescending.TabIndex = 14;
             this.btnSortDescending.Text = "Сортувати ↓";
             this.btnSortDescending.Click += new System.EventHandler(this.btnSortDescending_Click);
@@ -199,10 +199,10 @@ namespace CourseWorkSidebar
             // btnGenerateReport
             // 
             this.btnGenerateReport.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnGenerateReport.Location = new System.Drawing.Point(642, 420);
+            this.btnGenerateReport.Location = new System.Drawing.Point(851, 420);
             this.btnGenerateReport.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnGenerateReport.Name = "btnGenerateReport";
-            this.btnGenerateReport.Size = new System.Drawing.Size(207, 28);
+            this.btnGenerateReport.Size = new System.Drawing.Size(206, 28);
             this.btnGenerateReport.TabIndex = 11;
             this.btnGenerateReport.Text = "Генерувати звіт";
             this.btnGenerateReport.Click += new System.EventHandler(this.btnGenerateReport_Click);
@@ -210,10 +210,10 @@ namespace CourseWorkSidebar
             // comboBoxReportFormat
             // 
             this.comboBoxReportFormat.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.comboBoxReportFormat.Location = new System.Drawing.Point(642, 388);
+            this.comboBoxReportFormat.Location = new System.Drawing.Point(851, 388);
             this.comboBoxReportFormat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBoxReportFormat.Name = "comboBoxReportFormat";
-            this.comboBoxReportFormat.Size = new System.Drawing.Size(207, 24);
+            this.comboBoxReportFormat.Size = new System.Drawing.Size(206, 24);
             this.comboBoxReportFormat.TabIndex = 12;
             // 
             // tableLayoutPanel
@@ -231,16 +231,16 @@ namespace CourseWorkSidebar
             this.tableLayoutPanel.Controls.Add(this.txtYear, 2, 1);
             this.tableLayoutPanel.Controls.Add(this.txtLicensePlate, 3, 1);
             this.tableLayoutPanel.Controls.Add(this.txtDriverID, 4, 1);
-            this.tableLayoutPanel.Controls.Add(this.txtAssignedMaster, 5, 1); // Додаємо нове поле AssignedMaster
+            this.tableLayoutPanel.Controls.Add(this.txtAssignedMaster, 5, 1);
             this.tableLayoutPanel.Controls.Add(this.btnAddVehicle, 0, 2);
             this.tableLayoutPanel.Controls.Add(this.btnUpdateVehicle, 1, 2);
             this.tableLayoutPanel.Controls.Add(this.btnDeleteVehicle, 2, 2);
-            this.tableLayoutPanel.Controls.Add(this.txtSearch, 3, 2);
-            this.tableLayoutPanel.Controls.Add(this.comboBoxReportFormat, 3, 3);
+            this.tableLayoutPanel.Controls.Add(this.txtSearch, 4, 2);
+            this.tableLayoutPanel.Controls.Add(this.comboBoxReportFormat, 4, 3);
             this.tableLayoutPanel.Controls.Add(this.comboBoxSortBy, 0, 3);
             this.tableLayoutPanel.Controls.Add(this.btnSortAscending, 0, 4);
             this.tableLayoutPanel.Controls.Add(this.btnSortDescending, 1, 4);
-            this.tableLayoutPanel.Controls.Add(this.btnGenerateReport, 3, 4);
+            this.tableLayoutPanel.Controls.Add(this.btnGenerateReport, 4, 4);
             this.tableLayoutPanel.Controls.Add(this.btnReturnToMain, 5, 4);
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
