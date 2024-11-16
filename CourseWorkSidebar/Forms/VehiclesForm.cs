@@ -250,7 +250,8 @@ namespace CourseWorkSidebar
                 foreach (var vehicle in _currentVehicleList)
                 {
                     writer.WriteLine($"<tr><td>{vehicle.VehicleID}</td><td>{vehicle.Brand}</td><td>{vehicle.Model}</td><td>{vehicle.Year}</td><td>{vehicle.LicensePlate}</td>" +
-                        $"<td>{vehicle.DriverID}</td><td>{vehicle.AssignedMaster}</td><td>{vehicle.LastServiceDate?.ToString("dd.MM.yyyy") ?? ""}</td><td>{vehicle.LastServiceDetails}</td></tr>");
+                        $"<td>{vehicle.DriverID}</td><td>{vehicle.AssignedMaster}</td><td>{vehicle.LastServiceDate?.ToString("dd.MM.yyyy") ?? ""}</td>" +
+                        $"<td>{vehicle.LastServiceDetails}</td></tr>");
                 }
 
                 writer.WriteLine("</table>");

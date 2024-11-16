@@ -14,10 +14,8 @@ namespace CourseWorkSidebar
         MastersForm masters;
         OperatorsForm operators;
 
-        // Репозиторій користувачів для роботи з авторизацією
         private readonly UserRepository _userRepository;
 
-        // Для переміщення форми без ControlBox
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
 
@@ -29,10 +27,10 @@ namespace CourseWorkSidebar
         public MainForm()
         {
             InitializeComponent();
-            _userRepository = new UserRepository();  // Ініціалізація репозиторію
-            InitializeLogin();  // Ініціалізація логіки для авторизації
+            _userRepository = new UserRepository();
+            InitializeLogin();
             mdiProp();
-            AddFormMoveFunctionality(); // Додаємо можливість переміщення форми
+            AddFormMoveFunctionality();
         }
 
         bool personnelExpand = false;
@@ -51,11 +49,8 @@ namespace CourseWorkSidebar
 
         private void InitializeLogin()
         {
-            // Додаємо логіку для кнопок входу та реєстрації
             btnLogin.Click += BtnLogIn_Click;
             btnSignUp.Click += BtnSignUp_Click;
-
-            // Приховуємо кнопки та елементи, які не потрібні під час авторизації
             btnLogout.Click += BtnLogout_Click;
             btnLogout.Visible = false;
             SetFormsButtonsVisibility(false);
@@ -78,13 +73,10 @@ namespace CourseWorkSidebar
 
         private void BtnLogIn_Click(object sender, EventArgs e)
         {
-            // Перевірка на валідність введених даних
             if (IsValidLoginInput())
             {
                 string username = txtUsername.Text;
                 string password = txtPassword.Text;
-
-                // Аутентифікація користувача
                 if (_userRepository.AuthenticateUser(username, password))
                 {
                     MessageBox.Show("Вхід успішний!", "Інформація", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -104,19 +96,15 @@ namespace CourseWorkSidebar
             {
                 string username = txtUsername.Text;
                 string password = txtPassword.Text;
-
-                // Перевірка чи існує ім'я користувача
                 if (_userRepository.IsUsernameTaken(username))
                 {
                     MessageBox.Show("Користувач із таким логіном вже існує.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-
-                // Додавання нового користувача
                 var newUser = new User
                 {
                     Username = username,
-                    PasswordHash = password // Хешування паролю відбувається всередині репозиторію
+                    PasswordHash = password
                 };
                 _userRepository.AddUser(newUser);
 
@@ -127,13 +115,10 @@ namespace CourseWorkSidebar
 
         private void BtnLogout_Click(object sender, EventArgs e)
         {
-            // Закриття всіх дочірніх форм
             foreach (Form childForm in this.MdiChildren)
             {
                 childForm.Close();
             }
-
-            // Приховуємо кнопки та елементи, які не потрібні під час авторизації
             SetFormsButtonsVisibility(false);
             SetUserInterfaceVisibility(false);
             SetLoginInterfaceVisibility(true);
@@ -371,7 +356,7 @@ namespace CourseWorkSidebar
                     textBox.ForeColor = Color.Gray;
                     if (textBox == txtPassword)
                     {
-                        textBox.PasswordChar = '\0'; // Вимкнути символ паролю, щоб відобразити плейсхолдер
+                        textBox.PasswordChar = '\0';
                     }
                 }
             };

@@ -17,14 +17,10 @@ namespace CourseWorkSidebar.DataAccess
         {
             _context = new DatabaseContext();
         }
-
-        // Перевірка на існування імені користувача
         public bool IsUsernameTaken(string username)
         {
             return _context.Users?.Any(u => u.Username == username) ?? false;
         }
-
-        // Додавання нового користувача з хешованим паролем
         public void AddUser(User user)
         {
             if (_context.Users != null)
@@ -34,8 +30,6 @@ namespace CourseWorkSidebar.DataAccess
                 _context.SaveChanges();
             }
         }
-
-        // Аутентифікація користувача з перевіркою пароля через BCrypt
         public bool AuthenticateUser(string username, string password)
         {
             var user = _context.Users?.FirstOrDefault(u => u.Username == username);
@@ -43,14 +37,10 @@ namespace CourseWorkSidebar.DataAccess
 
             return VerifyPassword(password, user.PasswordHash);
         }
-
-        // Хешування пароля через BCrypt
         public string HashPassword(string password)
         {
             return BCrypt.Net.BCrypt.HashPassword(password);
         }
-
-        // Перевірка пароля через BCrypt
         private bool VerifyPassword(string password, string passwordHash)
         {
             return BCrypt.Net.BCrypt.Verify(password, passwordHash);

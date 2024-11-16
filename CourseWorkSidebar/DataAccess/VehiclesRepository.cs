@@ -51,8 +51,6 @@ namespace CourseWorkSidebar.DataAccess
                 _context.SaveChanges();
             }
         }
-
-        // Додано метод для оновлення інформації про останнє технічне обслуговування
         public void UpdateVehicleServiceDetails(int vehicleId, DateTime serviceDate, string serviceDetails)
         {
             var vehicle = GetVehicleById(vehicleId);

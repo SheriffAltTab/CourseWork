@@ -257,7 +257,8 @@ namespace CourseWorkSidebar
                 writer.WriteLine("<body>");
                 writer.WriteLine("<h1>Звіт про майстрів</h1>");
                 writer.WriteLine("<table border='1'>");
-                writer.WriteLine("<tr><th>ID</th><th>Ім'я</th><th>Прізвище</th><th>Дата народження</th><th>Спеціальність</th><th>Дата прийняття на роботу</th><th>Робочі дні</th></tr>");
+                writer.WriteLine("<tr><th>ID</th><th>Ім'я</th><th>Прізвище</th><th>Дата народження</th><th>Спеціальність</th>" +
+                    "<th>Дата прийняття на роботу</th><th>Робочі дні</th></tr>");
 
                 foreach (var master in _currentMasterList)
                 {
