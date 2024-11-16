@@ -234,8 +234,8 @@ namespace CourseWorkSidebar
             this.tableLayoutPanel.Controls.Add(this.comboBoxSortBy, 0, 3);
             this.tableLayoutPanel.Controls.Add(this.btnSortDescending, 0, 4);
             this.tableLayoutPanel.Controls.Add(this.btnSortAscending, 1, 4);
-            this.tableLayoutPanel.Controls.Add(this.btnGenerateReport, 2, 4);
-            this.tableLayoutPanel.Controls.Add(this.comboBoxReportFormat, 2, 3);
+            this.tableLayoutPanel.Controls.Add(this.btnGenerateReport, 3, 4);
+            this.tableLayoutPanel.Controls.Add(this.comboBoxReportFormat, 3, 3);
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -246,6 +246,7 @@ namespace CourseWorkSidebar
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel.Size = new System.Drawing.Size(1067, 450);
             this.tableLayoutPanel.TabIndex = 0;
             // 
@@ -293,11 +294,12 @@ namespace CourseWorkSidebar
             // 
             // btnGenerateReport
             // 
+            this.tableLayoutPanel.SetColumnSpan(this.btnGenerateReport, 2);
             this.btnGenerateReport.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnGenerateReport.Location = new System.Drawing.Point(323, 420);
+            this.btnGenerateReport.Location = new System.Drawing.Point(483, 420);
             this.btnGenerateReport.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnGenerateReport.Name = "btnGenerateReport";
-            this.btnGenerateReport.Size = new System.Drawing.Size(154, 28);
+            this.btnGenerateReport.Size = new System.Drawing.Size(314, 28);
             this.btnGenerateReport.TabIndex = 15;
             this.btnGenerateReport.Text = "Генерувати звіт";
             this.btnGenerateReport.UseVisualStyleBackColor = true;
@@ -305,6 +307,7 @@ namespace CourseWorkSidebar
             // 
             // comboBoxReportFormat
             // 
+            this.tableLayoutPanel.SetColumnSpan(this.comboBoxReportFormat, 2);
             this.comboBoxReportFormat.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboBoxReportFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxReportFormat.FormattingEnabled = true;
@@ -312,10 +315,10 @@ namespace CourseWorkSidebar
             "HTML",
             "PDF",
             "CSV"});
-            this.comboBoxReportFormat.Location = new System.Drawing.Point(323, 388);
+            this.comboBoxReportFormat.Location = new System.Drawing.Point(483, 388);
             this.comboBoxReportFormat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBoxReportFormat.Name = "comboBoxReportFormat";
-            this.comboBoxReportFormat.Size = new System.Drawing.Size(154, 24);
+            this.comboBoxReportFormat.Size = new System.Drawing.Size(314, 24);
             this.comboBoxReportFormat.TabIndex = 16;
             // 
             // DriversForm

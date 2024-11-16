@@ -164,12 +164,11 @@ namespace CourseWorkSidebar
             // 
             // txtSearch
             // 
-            this.tableLayoutPanel.SetColumnSpan(this.txtSearch, 2);
             this.txtSearch.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSearch.Location = new System.Drawing.Point(639, 458);
+            this.txtSearch.Location = new System.Drawing.Point(957, 426);
             this.txtSearch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(632, 22);
+            this.txtSearch.Size = new System.Drawing.Size(314, 22);
             this.txtSearch.TabIndex = 12;
             // 
             // comboBoxSortBy
@@ -218,10 +217,10 @@ namespace CourseWorkSidebar
             // comboBoxReportFormat
             // 
             this.comboBoxReportFormat.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.comboBoxReportFormat.Location = new System.Drawing.Point(639, 490);
+            this.comboBoxReportFormat.Location = new System.Drawing.Point(957, 458);
             this.comboBoxReportFormat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBoxReportFormat.Name = "comboBoxReportFormat";
-            this.comboBoxReportFormat.Size = new System.Drawing.Size(312, 24);
+            this.comboBoxReportFormat.Size = new System.Drawing.Size(314, 24);
             this.comboBoxReportFormat.TabIndex = 18;
             // 
             // tableLayoutPanel
@@ -243,8 +242,8 @@ namespace CourseWorkSidebar
             this.tableLayoutPanel.Controls.Add(this.btnAddVehicle, 0, 3);
             this.tableLayoutPanel.Controls.Add(this.btnUpdateVehicle, 1, 3);
             this.tableLayoutPanel.Controls.Add(this.btnDeleteVehicle, 2, 3);
-            this.tableLayoutPanel.Controls.Add(this.txtSearch, 2, 4);
-            this.tableLayoutPanel.Controls.Add(this.comboBoxReportFormat, 2, 5);
+            this.tableLayoutPanel.Controls.Add(this.txtSearch, 3, 3);
+            this.tableLayoutPanel.Controls.Add(this.comboBoxReportFormat, 3, 4);
             this.tableLayoutPanel.Controls.Add(this.comboBoxSortBy, 0, 4);
             this.tableLayoutPanel.Controls.Add(this.btnSortAscending, 0, 5);
             this.tableLayoutPanel.Controls.Add(this.btnSortDescending, 1, 5);

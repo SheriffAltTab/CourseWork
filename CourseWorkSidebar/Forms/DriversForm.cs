@@ -262,7 +262,7 @@ namespace CourseWorkSidebar
 
                 string fontPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "arial.ttf");
                 var bf = BaseFont.CreateFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-                var font = new iTextSharp.text.Font(bf, 12, iTextSharp.text.Font.NORMAL);
+                var font = new iTextSharp.text.Font(bf, 9, iTextSharp.text.Font.NORMAL);
 
                 var table = new PdfPTable(8);
                 table.AddCell(new PdfPCell(new Phrase("ID", font)));
