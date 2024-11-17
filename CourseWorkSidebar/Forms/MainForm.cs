@@ -97,33 +97,8 @@ namespace CourseWorkSidebar
 
                 if (currentUser != null && _userRepository.AuthenticateUser(username, password))
                 {
-                    // Перевірка на роль користувача при виборі форми входу
-                    if (btnDriverPanel.Focused && currentUser.Role != "Водій")
-                    {
-                        MessageBox.Show("Цей акаунт не є водієм. Будь ласка, увійдіть як водій.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
-                    if (btnAdminPanel.Focused && currentUser.Role != "Адміністратор")
-                    {
-                        MessageBox.Show("Цей акаунт не є адміністратором. Будь ласка, увійдіть як дміністратор.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
-                    if (btnOperatorPanel.Focused && currentUser.Role != "Оператор")
-                    {
-                        MessageBox.Show("Цей акаунт не є оператором. Будь ласка, увійдіть як оператор.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
-                    if (btnMasterPanel.Focused && currentUser.Role != "Майстер")
-                    {
-                        MessageBox.Show("Цей акаунт не є майстром. Будь ласка, увійдіть як майстер.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
                     MessageBox.Show("Вхід успішний!", "Інформація", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    SetUserInterfaceVisibility(true);
+                    SetUserInterfaceVisibility(true, currentUser.Role);
                     ClearLoginFields();
                     LoadUserSpecificForm(currentUser);
                 }
@@ -185,11 +160,33 @@ namespace CourseWorkSidebar
             PersonnelContainer.Visible = visible;
         }
 
-        private void SetUserInterfaceVisibility(bool loggedIn)
+        private void SetUserInterfaceVisibility(bool loggedIn, string role = null)
         {
             btnLogout.Visible = loggedIn;
             sidebar.Enabled = loggedIn;
-            SetFormsButtonsVisibility(loggedIn);
+
+            if (role == "Адміністратор")
+            {
+                pnDrivers.Visible = true;
+                pnVehicle.Visible = true;
+                btnDrivers.Visible = true;
+                btnVehicles.Visible = true;
+                PersonnelContainer.Visible = true;
+                btnPersonnel.Visible = true;
+                btnMasters.Visible = true;
+                btnOperators.Visible = true;
+            }
+            else
+            {
+                btnDrivers.Visible = false;
+                btnVehicles.Visible = false;
+                btnPersonnel.Visible = false;
+                btnMasters.Visible = false;
+                btnOperators.Visible = false;
+                pnDrivers.Visible = false;
+                pnVehicle.Visible = false;
+                PersonnelContainer.Visible = false;
+            }
             SetLoginInterfaceVisibility(!loggedIn);
         }
 
