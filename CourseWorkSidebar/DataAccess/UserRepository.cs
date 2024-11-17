@@ -17,19 +17,29 @@ namespace CourseWorkSidebar.DataAccess
         {
             _context = new DatabaseContext();
         }
+
         public bool IsUsernameTaken(string username)
         {
             return _context.Users?.Any(u => u.Username == username) ?? false;
         }
+
         public void AddUser(User user)
         {
             if (_context.Users != null)
             {
                 user.PasswordHash = HashPassword(user.PasswordHash);
+                
+                // Додаємо роль за замовчуванням, якщо вона не задана
+                if (string.IsNullOrEmpty(user.Role))
+                {
+                    user.Role = "Адміністратор";
+                }
+                
                 _context.Users.Add(user);
                 _context.SaveChanges();
             }
         }
+
         public bool AuthenticateUser(string username, string password)
         {
             var user = _context.Users?.FirstOrDefault(u => u.Username == username);
@@ -37,10 +47,17 @@ namespace CourseWorkSidebar.DataAccess
 
             return VerifyPassword(password, user.PasswordHash);
         }
+
+        public User GetUserByUsername(string username)
+        {
+            return _context.Users?.FirstOrDefault(u => u.Username == username);
+        }
+
         public string HashPassword(string password)
         {
             return BCrypt.Net.BCrypt.HashPassword(password);
         }
+
         private bool VerifyPassword(string password, string passwordHash)
         {
             return BCrypt.Net.BCrypt.Verify(password, passwordHash);

@@ -36,6 +36,7 @@ namespace CourseWorkSidebar
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OperatorsForm));
             this.dataGridViewOperators = new System.Windows.Forms.DataGridView();
             this.txtFirstName = new System.Windows.Forms.TextBox();
             this.txtLastName = new System.Windows.Forms.TextBox();
@@ -67,13 +68,13 @@ namespace CourseWorkSidebar
             this.dataGridViewOperators.Name = "dataGridViewOperators";
             this.dataGridViewOperators.RowHeadersWidth = 51;
             this.dataGridViewOperators.RowTemplate.Height = 29;
-            this.dataGridViewOperators.Size = new System.Drawing.Size(1061, 318);
+            this.dataGridViewOperators.Size = new System.Drawing.Size(1061, 252);
             this.dataGridViewOperators.TabIndex = 0;
             // 
             // txtFirstName
             // 
             this.txtFirstName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtFirstName.Location = new System.Drawing.Point(3, 324);
+            this.txtFirstName.Location = new System.Drawing.Point(3, 258);
             this.txtFirstName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.Size = new System.Drawing.Size(207, 22);
@@ -82,7 +83,7 @@ namespace CourseWorkSidebar
             // txtLastName
             // 
             this.txtLastName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtLastName.Location = new System.Drawing.Point(216, 324);
+            this.txtLastName.Location = new System.Drawing.Point(216, 258);
             this.txtLastName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(207, 22);
@@ -91,7 +92,7 @@ namespace CourseWorkSidebar
             // dtpBirthDate
             // 
             this.dtpBirthDate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dtpBirthDate.Location = new System.Drawing.Point(429, 324);
+            this.dtpBirthDate.Location = new System.Drawing.Point(429, 258);
             this.dtpBirthDate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dtpBirthDate.Name = "dtpBirthDate";
             this.dtpBirthDate.Size = new System.Drawing.Size(207, 22);
@@ -100,7 +101,7 @@ namespace CourseWorkSidebar
             // dtpHireDate
             // 
             this.dtpHireDate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dtpHireDate.Location = new System.Drawing.Point(642, 324);
+            this.dtpHireDate.Location = new System.Drawing.Point(642, 258);
             this.dtpHireDate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dtpHireDate.Name = "dtpHireDate";
             this.dtpHireDate.Size = new System.Drawing.Size(207, 22);
@@ -109,43 +110,55 @@ namespace CourseWorkSidebar
             // btnAddOperator
             // 
             this.btnAddOperator.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnAddOperator.Location = new System.Drawing.Point(3, 356);
+            this.btnAddOperator.Image = ((System.Drawing.Image)(resources.GetObject("btnAddOperator.Image")));
+            this.btnAddOperator.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAddOperator.Location = new System.Drawing.Point(3, 290);
             this.btnAddOperator.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnAddOperator.Name = "btnAddOperator";
-            this.btnAddOperator.Size = new System.Drawing.Size(207, 28);
+            this.btnAddOperator.Size = new System.Drawing.Size(207, 61);
             this.btnAddOperator.TabIndex = 5;
             this.btnAddOperator.Text = "Додати оператора";
+            this.btnAddOperator.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAddOperator.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnAddOperator.UseVisualStyleBackColor = true;
             this.btnAddOperator.Click += new System.EventHandler(this.btnAddOperator_Click);
             // 
             // btnUpdateOperator
             // 
             this.btnUpdateOperator.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnUpdateOperator.Location = new System.Drawing.Point(216, 356);
+            this.btnUpdateOperator.Image = ((System.Drawing.Image)(resources.GetObject("btnUpdateOperator.Image")));
+            this.btnUpdateOperator.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnUpdateOperator.Location = new System.Drawing.Point(216, 290);
             this.btnUpdateOperator.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnUpdateOperator.Name = "btnUpdateOperator";
-            this.btnUpdateOperator.Size = new System.Drawing.Size(207, 28);
+            this.btnUpdateOperator.Size = new System.Drawing.Size(207, 61);
             this.btnUpdateOperator.TabIndex = 6;
             this.btnUpdateOperator.Text = "Оновити оператора";
+            this.btnUpdateOperator.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnUpdateOperator.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnUpdateOperator.UseVisualStyleBackColor = true;
             this.btnUpdateOperator.Click += new System.EventHandler(this.btnUpdateOperator_Click);
             // 
             // btnDeleteOperator
             // 
             this.btnDeleteOperator.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnDeleteOperator.Location = new System.Drawing.Point(429, 356);
+            this.btnDeleteOperator.Image = ((System.Drawing.Image)(resources.GetObject("btnDeleteOperator.Image")));
+            this.btnDeleteOperator.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnDeleteOperator.Location = new System.Drawing.Point(429, 290);
             this.btnDeleteOperator.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnDeleteOperator.Name = "btnDeleteOperator";
-            this.btnDeleteOperator.Size = new System.Drawing.Size(207, 28);
+            this.btnDeleteOperator.Size = new System.Drawing.Size(207, 61);
             this.btnDeleteOperator.TabIndex = 7;
             this.btnDeleteOperator.Text = "Видалити оператора";
+            this.btnDeleteOperator.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDeleteOperator.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnDeleteOperator.UseVisualStyleBackColor = true;
             this.btnDeleteOperator.Click += new System.EventHandler(this.btnDeleteOperator_Click);
             // 
             // txtSearch
             // 
             this.txtSearch.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSearch.Location = new System.Drawing.Point(642, 356);
+            this.txtSearch.Location = new System.Drawing.Point(642, 290);
             this.txtSearch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(207, 22);
@@ -157,7 +170,7 @@ namespace CourseWorkSidebar
             this.tableLayoutPanel.SetColumnSpan(this.comboBoxSortBy, 2);
             this.comboBoxSortBy.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboBoxSortBy.FormattingEnabled = true;
-            this.comboBoxSortBy.Location = new System.Drawing.Point(3, 388);
+            this.comboBoxSortBy.Location = new System.Drawing.Point(3, 355);
             this.comboBoxSortBy.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBoxSortBy.Name = "comboBoxSortBy";
             this.comboBoxSortBy.Size = new System.Drawing.Size(420, 24);
@@ -167,7 +180,7 @@ namespace CourseWorkSidebar
             // 
             this.comboBoxReportFormat.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboBoxReportFormat.FormattingEnabled = true;
-            this.comboBoxReportFormat.Location = new System.Drawing.Point(642, 388);
+            this.comboBoxReportFormat.Location = new System.Drawing.Point(642, 355);
             this.comboBoxReportFormat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBoxReportFormat.Name = "comboBoxReportFormat";
             this.comboBoxReportFormat.Size = new System.Drawing.Size(207, 24);
@@ -176,24 +189,32 @@ namespace CourseWorkSidebar
             // btnSortDescending
             // 
             this.btnSortDescending.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnSortDescending.Location = new System.Drawing.Point(3, 420);
+            this.btnSortDescending.Image = ((System.Drawing.Image)(resources.GetObject("btnSortDescending.Image")));
+            this.btnSortDescending.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSortDescending.Location = new System.Drawing.Point(3, 387);
             this.btnSortDescending.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSortDescending.Name = "btnSortDescending";
-            this.btnSortDescending.Size = new System.Drawing.Size(207, 28);
+            this.btnSortDescending.Size = new System.Drawing.Size(207, 61);
             this.btnSortDescending.TabIndex = 11;
-            this.btnSortDescending.Text = "Сортувати ↑";
+            this.btnSortDescending.Text = "Сортувати";
+            this.btnSortDescending.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSortDescending.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnSortDescending.UseVisualStyleBackColor = true;
             this.btnSortDescending.Click += new System.EventHandler(this.btnSortDescending_Click);
             // 
             // btnSortAscending
             // 
             this.btnSortAscending.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnSortAscending.Location = new System.Drawing.Point(216, 420);
+            this.btnSortAscending.Image = ((System.Drawing.Image)(resources.GetObject("btnSortAscending.Image")));
+            this.btnSortAscending.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSortAscending.Location = new System.Drawing.Point(216, 387);
             this.btnSortAscending.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSortAscending.Name = "btnSortAscending";
-            this.btnSortAscending.Size = new System.Drawing.Size(207, 28);
+            this.btnSortAscending.Size = new System.Drawing.Size(207, 61);
             this.btnSortAscending.TabIndex = 12;
-            this.btnSortAscending.Text = "Сортувати ↓";
+            this.btnSortAscending.Text = "Сортувати";
+            this.btnSortAscending.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSortAscending.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnSortAscending.UseVisualStyleBackColor = true;
             this.btnSortAscending.Click += new System.EventHandler(this.btnSortAscending_Click);
             // 
@@ -227,10 +248,9 @@ namespace CourseWorkSidebar
             this.tableLayoutPanel.RowCount = 5;
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 65F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 65F));
             this.tableLayoutPanel.Size = new System.Drawing.Size(1067, 450);
             this.tableLayoutPanel.TabIndex = 0;
             // 
@@ -246,22 +266,26 @@ namespace CourseWorkSidebar
             "Пт",
             "Сб",
             "Нд"});
-            this.clbWorkingDays.Location = new System.Drawing.Point(855, 324);
+            this.clbWorkingDays.Location = new System.Drawing.Point(855, 258);
             this.clbWorkingDays.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.clbWorkingDays.Name = "clbWorkingDays";
             this.tableLayoutPanel.SetRowSpan(this.clbWorkingDays, 4);
-            this.clbWorkingDays.Size = new System.Drawing.Size(209, 124);
+            this.clbWorkingDays.Size = new System.Drawing.Size(209, 190);
             this.clbWorkingDays.TabIndex = 17;
             // 
             // btnGenerateReport
             // 
             this.btnGenerateReport.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnGenerateReport.Location = new System.Drawing.Point(642, 420);
+            this.btnGenerateReport.Image = ((System.Drawing.Image)(resources.GetObject("btnGenerateReport.Image")));
+            this.btnGenerateReport.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnGenerateReport.Location = new System.Drawing.Point(642, 387);
             this.btnGenerateReport.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnGenerateReport.Name = "btnGenerateReport";
-            this.btnGenerateReport.Size = new System.Drawing.Size(207, 28);
+            this.btnGenerateReport.Size = new System.Drawing.Size(207, 61);
             this.btnGenerateReport.TabIndex = 13;
             this.btnGenerateReport.Text = "Генерувати звіт";
+            this.btnGenerateReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGenerateReport.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnGenerateReport.UseVisualStyleBackColor = true;
             this.btnGenerateReport.Click += new System.EventHandler(this.btnGenerateReport_Click);
             // 

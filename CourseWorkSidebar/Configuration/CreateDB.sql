@@ -46,6 +46,25 @@ CREATE TABLE Operators (
     WorkingDays NVARCHAR(50) NOT NULL  -- Наприклад, "Пн, Вт, Ср, Чт, Пт"
 );
 
+-- Таблиця для користувачів
+CREATE TABLE Users (
+    UserID INT PRIMARY KEY IDENTITY(1,1),
+    Username NVARCHAR(50) UNIQUE NOT NULL,
+    PasswordHash NVARCHAR(255) NOT NULL,
+    Role NVARCHAR (50) NOT NULL
+);
+
+CREATE TABLE Faults (
+    FaultID INT PRIMARY KEY IDENTITY,
+    DriverID INT NOT NULL,
+    VehicleID INT NOT NULL,
+    Description NVARCHAR(MAX) NOT NULL,
+    ReportDate DATETIME NOT NULL,
+    FOREIGN KEY (DriverID) REFERENCES Drivers(DriverID),
+    FOREIGN KEY (VehicleID) REFERENCES Vehicles(VehicleID)
+);
+
+
 -- Додавання водіїв
 INSERT INTO Drivers (FirstName, LastName, BirthDate, LicenseNumber, HireDate, WorkingDays, WorkingAreas)
 VALUES 

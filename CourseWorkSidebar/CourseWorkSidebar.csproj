@@ -113,6 +113,7 @@
     <Compile Include="DataAccess\DriversRepository.cs" />
     <Compile Include="DataAccess\MastersRepository.cs" />
     <Compile Include="DataAccess\OperatorsRepository.cs" />
+    <Compile Include="DataAccess\FaultRepository.cs" />
     <Compile Include="DataAccess\UserRepository.cs" />
     <Compile Include="DataAccess\VehiclesRepository.cs" />
     <Compile Include="Forms\DriversForm.cs">
@@ -120,6 +121,12 @@
     </Compile>
     <Compile Include="Forms\DriversForm.Designer.cs">
       <DependentUpon>DriversForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DriverUserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DriverUserForm.Designer.cs">
+      <DependentUpon>DriverUserForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
@@ -133,11 +140,23 @@
     <Compile Include="Forms\MastersForm.Designer.cs">
       <DependentUpon>MastersForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\MasterUserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MasterUserForm.Designer.cs">
+      <DependentUpon>MasterUserForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\OperatorsForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\OperatorsForm.Designer.cs">
       <DependentUpon>OperatorsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\OperatorUserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OperatorUserForm.Designer.cs">
+      <DependentUpon>OperatorUserForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\VehiclesForm.cs">
       <SubType>Form</SubType>
@@ -146,6 +165,7 @@
       <DependentUpon>VehiclesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Drivers.cs" />
+    <Compile Include="Models\Fault.cs" />
     <Compile Include="Models\Masters.cs" />
     <Compile Include="Models\Operators.cs" />
     <Compile Include="Models\User.cs" />
@@ -155,14 +175,23 @@
     <EmbeddedResource Include="Forms\DriversForm.resx">
       <DependentUpon>DriversForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DriverUserForm.resx">
+      <DependentUpon>DriverUserForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MastersForm.resx">
       <DependentUpon>MastersForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MasterUserForm.resx">
+      <DependentUpon>MasterUserForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\OperatorsForm.resx">
       <DependentUpon>OperatorsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OperatorUserForm.resx">
+      <DependentUpon>OperatorUserForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\VehiclesForm.resx">
       <DependentUpon>VehiclesForm.cs</DependentUpon>
@@ -194,7 +223,6 @@
     <Folder Include="Reports\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Configuration\Auth.sql" />
     <Content Include="Configuration\CreateDB.sql" />
     <Content Include="Configuration\Icons\Drivers.png" />
     <Content Include="Configuration\Icons\Login.png" />

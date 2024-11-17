@@ -47,6 +47,7 @@ namespace CourseWorkSidebar
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DriversForm));
             this.dataGridViewDrivers = new System.Windows.Forms.DataGridView();
             this.txtFirstName = new System.Windows.Forms.TextBox();
             this.txtLastName = new System.Windows.Forms.TextBox();
@@ -80,13 +81,13 @@ namespace CourseWorkSidebar
             this.dataGridViewDrivers.Name = "dataGridViewDrivers";
             this.dataGridViewDrivers.RowHeadersWidth = 51;
             this.dataGridViewDrivers.RowTemplate.Height = 29;
-            this.dataGridViewDrivers.Size = new System.Drawing.Size(1061, 318);
+            this.dataGridViewDrivers.Size = new System.Drawing.Size(1061, 252);
             this.dataGridViewDrivers.TabIndex = 0;
             // 
             // txtFirstName
             // 
             this.txtFirstName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtFirstName.Location = new System.Drawing.Point(3, 324);
+            this.txtFirstName.Location = new System.Drawing.Point(3, 258);
             this.txtFirstName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.Size = new System.Drawing.Size(154, 22);
@@ -95,7 +96,7 @@ namespace CourseWorkSidebar
             // txtLastName
             // 
             this.txtLastName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtLastName.Location = new System.Drawing.Point(163, 324);
+            this.txtLastName.Location = new System.Drawing.Point(163, 258);
             this.txtLastName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(154, 22);
@@ -104,7 +105,7 @@ namespace CourseWorkSidebar
             // dtpBirthDate
             // 
             this.dtpBirthDate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dtpBirthDate.Location = new System.Drawing.Point(323, 324);
+            this.dtpBirthDate.Location = new System.Drawing.Point(323, 258);
             this.dtpBirthDate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dtpBirthDate.Name = "dtpBirthDate";
             this.dtpBirthDate.Size = new System.Drawing.Size(154, 22);
@@ -113,7 +114,7 @@ namespace CourseWorkSidebar
             // txtLicenseNumber
             // 
             this.txtLicenseNumber.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtLicenseNumber.Location = new System.Drawing.Point(483, 324);
+            this.txtLicenseNumber.Location = new System.Drawing.Point(483, 258);
             this.txtLicenseNumber.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtLicenseNumber.Name = "txtLicenseNumber";
             this.txtLicenseNumber.Size = new System.Drawing.Size(154, 22);
@@ -122,7 +123,7 @@ namespace CourseWorkSidebar
             // dtpHireDate
             // 
             this.dtpHireDate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dtpHireDate.Location = new System.Drawing.Point(643, 324);
+            this.dtpHireDate.Location = new System.Drawing.Point(643, 258);
             this.dtpHireDate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dtpHireDate.Name = "dtpHireDate";
             this.dtpHireDate.Size = new System.Drawing.Size(154, 22);
@@ -131,36 +132,48 @@ namespace CourseWorkSidebar
             // btnAddDriver
             // 
             this.btnAddDriver.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnAddDriver.Location = new System.Drawing.Point(3, 356);
+            this.btnAddDriver.Image = ((System.Drawing.Image)(resources.GetObject("btnAddDriver.Image")));
+            this.btnAddDriver.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAddDriver.Location = new System.Drawing.Point(3, 290);
             this.btnAddDriver.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnAddDriver.Name = "btnAddDriver";
-            this.btnAddDriver.Size = new System.Drawing.Size(154, 28);
+            this.btnAddDriver.Size = new System.Drawing.Size(154, 61);
             this.btnAddDriver.TabIndex = 6;
             this.btnAddDriver.Text = "Додати водія";
+            this.btnAddDriver.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAddDriver.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnAddDriver.UseVisualStyleBackColor = true;
             this.btnAddDriver.Click += new System.EventHandler(this.btnAddDriver_Click);
             // 
             // btnUpdateDriver
             // 
             this.btnUpdateDriver.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnUpdateDriver.Location = new System.Drawing.Point(163, 356);
+            this.btnUpdateDriver.Image = ((System.Drawing.Image)(resources.GetObject("btnUpdateDriver.Image")));
+            this.btnUpdateDriver.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnUpdateDriver.Location = new System.Drawing.Point(163, 290);
             this.btnUpdateDriver.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnUpdateDriver.Name = "btnUpdateDriver";
-            this.btnUpdateDriver.Size = new System.Drawing.Size(154, 28);
+            this.btnUpdateDriver.Size = new System.Drawing.Size(154, 61);
             this.btnUpdateDriver.TabIndex = 7;
             this.btnUpdateDriver.Text = "Оновити водія";
+            this.btnUpdateDriver.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnUpdateDriver.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnUpdateDriver.UseVisualStyleBackColor = true;
             this.btnUpdateDriver.Click += new System.EventHandler(this.btnUpdateDriver_Click);
             // 
             // btnDeleteDriver
             // 
             this.btnDeleteDriver.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnDeleteDriver.Location = new System.Drawing.Point(323, 356);
+            this.btnDeleteDriver.Image = ((System.Drawing.Image)(resources.GetObject("btnDeleteDriver.Image")));
+            this.btnDeleteDriver.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnDeleteDriver.Location = new System.Drawing.Point(323, 290);
             this.btnDeleteDriver.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnDeleteDriver.Name = "btnDeleteDriver";
-            this.btnDeleteDriver.Size = new System.Drawing.Size(154, 28);
+            this.btnDeleteDriver.Size = new System.Drawing.Size(154, 61);
             this.btnDeleteDriver.TabIndex = 8;
             this.btnDeleteDriver.Text = "Видалити водія";
+            this.btnDeleteDriver.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDeleteDriver.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnDeleteDriver.UseVisualStyleBackColor = true;
             this.btnDeleteDriver.Click += new System.EventHandler(this.btnDeleteDriver_Click);
             // 
@@ -168,7 +181,7 @@ namespace CourseWorkSidebar
             // 
             this.tableLayoutPanel.SetColumnSpan(this.txtSearch, 2);
             this.txtSearch.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSearch.Location = new System.Drawing.Point(483, 356);
+            this.txtSearch.Location = new System.Drawing.Point(483, 290);
             this.txtSearch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(314, 22);
@@ -179,7 +192,7 @@ namespace CourseWorkSidebar
             this.tableLayoutPanel.SetColumnSpan(this.comboBoxSortBy, 2);
             this.comboBoxSortBy.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboBoxSortBy.FormattingEnabled = true;
-            this.comboBoxSortBy.Location = new System.Drawing.Point(3, 388);
+            this.comboBoxSortBy.Location = new System.Drawing.Point(3, 355);
             this.comboBoxSortBy.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBoxSortBy.Name = "comboBoxSortBy";
             this.comboBoxSortBy.Size = new System.Drawing.Size(314, 24);
@@ -188,24 +201,32 @@ namespace CourseWorkSidebar
             // btnSortDescending
             // 
             this.btnSortDescending.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnSortDescending.Location = new System.Drawing.Point(3, 420);
+            this.btnSortDescending.Image = ((System.Drawing.Image)(resources.GetObject("btnSortDescending.Image")));
+            this.btnSortDescending.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSortDescending.Location = new System.Drawing.Point(3, 387);
             this.btnSortDescending.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSortDescending.Name = "btnSortDescending";
-            this.btnSortDescending.Size = new System.Drawing.Size(154, 28);
+            this.btnSortDescending.Size = new System.Drawing.Size(154, 61);
             this.btnSortDescending.TabIndex = 12;
-            this.btnSortDescending.Text = "Сортувати ↑";
+            this.btnSortDescending.Text = "Сортувати";
+            this.btnSortDescending.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSortDescending.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnSortDescending.UseVisualStyleBackColor = true;
             this.btnSortDescending.Click += new System.EventHandler(this.btnSortDescending_Click);
             // 
             // btnSortAscending
             // 
             this.btnSortAscending.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnSortAscending.Location = new System.Drawing.Point(163, 420);
+            this.btnSortAscending.Image = ((System.Drawing.Image)(resources.GetObject("btnSortAscending.Image")));
+            this.btnSortAscending.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSortAscending.Location = new System.Drawing.Point(163, 387);
             this.btnSortAscending.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSortAscending.Name = "btnSortAscending";
-            this.btnSortAscending.Size = new System.Drawing.Size(154, 28);
+            this.btnSortAscending.Size = new System.Drawing.Size(154, 61);
             this.btnSortAscending.TabIndex = 13;
-            this.btnSortAscending.Text = "Сортувати ↓";
+            this.btnSortAscending.Text = "Сортувати";
+            this.btnSortAscending.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSortAscending.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnSortAscending.UseVisualStyleBackColor = true;
             this.btnSortAscending.Click += new System.EventHandler(this.btnSortAscending_Click);
             // 
@@ -243,10 +264,9 @@ namespace CourseWorkSidebar
             this.tableLayoutPanel.RowCount = 5;
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 65F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 65F));
             this.tableLayoutPanel.Size = new System.Drawing.Size(1067, 450);
             this.tableLayoutPanel.TabIndex = 0;
             // 
@@ -262,11 +282,11 @@ namespace CourseWorkSidebar
             "Пт",
             "Сб",
             "Нд"});
-            this.clbWorkingDays.Location = new System.Drawing.Point(803, 324);
+            this.clbWorkingDays.Location = new System.Drawing.Point(803, 258);
             this.clbWorkingDays.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.clbWorkingDays.Name = "clbWorkingDays";
             this.tableLayoutPanel.SetRowSpan(this.clbWorkingDays, 4);
-            this.clbWorkingDays.Size = new System.Drawing.Size(100, 124);
+            this.clbWorkingDays.Size = new System.Drawing.Size(100, 190);
             this.clbWorkingDays.TabIndex = 17;
             // 
             // clbWorkingAreas
@@ -285,23 +305,27 @@ namespace CourseWorkSidebar
             "Аляска",
             "Сонячний",
             "Березовиця"});
-            this.clbWorkingAreas.Location = new System.Drawing.Point(909, 324);
+            this.clbWorkingAreas.Location = new System.Drawing.Point(909, 258);
             this.clbWorkingAreas.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.clbWorkingAreas.Name = "clbWorkingAreas";
             this.tableLayoutPanel.SetRowSpan(this.clbWorkingAreas, 4);
-            this.clbWorkingAreas.Size = new System.Drawing.Size(155, 124);
+            this.clbWorkingAreas.Size = new System.Drawing.Size(155, 190);
             this.clbWorkingAreas.TabIndex = 18;
             // 
             // btnGenerateReport
             // 
             this.tableLayoutPanel.SetColumnSpan(this.btnGenerateReport, 2);
             this.btnGenerateReport.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnGenerateReport.Location = new System.Drawing.Point(483, 420);
+            this.btnGenerateReport.Image = ((System.Drawing.Image)(resources.GetObject("btnGenerateReport.Image")));
+            this.btnGenerateReport.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnGenerateReport.Location = new System.Drawing.Point(483, 387);
             this.btnGenerateReport.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnGenerateReport.Name = "btnGenerateReport";
-            this.btnGenerateReport.Size = new System.Drawing.Size(314, 28);
+            this.btnGenerateReport.Size = new System.Drawing.Size(314, 61);
             this.btnGenerateReport.TabIndex = 15;
             this.btnGenerateReport.Text = "Генерувати звіт";
+            this.btnGenerateReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGenerateReport.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnGenerateReport.UseVisualStyleBackColor = true;
             this.btnGenerateReport.Click += new System.EventHandler(this.btnGenerateReport_Click);
             // 
@@ -315,7 +339,7 @@ namespace CourseWorkSidebar
             "HTML",
             "PDF",
             "CSV"});
-            this.comboBoxReportFormat.Location = new System.Drawing.Point(483, 388);
+            this.comboBoxReportFormat.Location = new System.Drawing.Point(483, 355);
             this.comboBoxReportFormat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBoxReportFormat.Name = "comboBoxReportFormat";
             this.comboBoxReportFormat.Size = new System.Drawing.Size(314, 24);

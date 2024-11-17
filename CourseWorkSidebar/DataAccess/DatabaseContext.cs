@@ -16,5 +16,6 @@ namespace CourseWorkSidebar.DataAccess
         public virtual DbSet<Master> Masters { get; set; }
         public virtual DbSet<Operator> Operators { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Fault> Faults { get; set; }
     }
 }

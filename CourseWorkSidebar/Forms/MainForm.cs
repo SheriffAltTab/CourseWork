@@ -3,7 +3,9 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using CourseWorkSidebar.DataAccess;
+using CourseWorkSidebar.Forms;
 using CourseWorkSidebar.Models;
+using static ReaLTaiizor.Controls.ExtendedPanel;
 
 namespace CourseWorkSidebar
 {
@@ -13,6 +15,9 @@ namespace CourseWorkSidebar
         VehiclesForm vehicles;
         MastersForm masters;
         OperatorsForm operators;
+        DriverUserForm driverUser;
+        OperatorUserForm operatorUser;
+        MasterUserForm masterUser;
 
         private readonly UserRepository _userRepository;
 
@@ -29,8 +34,10 @@ namespace CourseWorkSidebar
             InitializeComponent();
             _userRepository = new UserRepository();
             InitializeLogin();
+            InitializeRoleSelection();
             mdiProp();
             AddFormMoveFunctionality();
+            SetInitialVisibility();
         }
 
         bool personnelExpand = false;
@@ -52,9 +59,18 @@ namespace CourseWorkSidebar
             btnLogin.Click += BtnLogIn_Click;
             btnSignUp.Click += BtnSignUp_Click;
             btnLogout.Click += BtnLogout_Click;
+            btnReturn.Click += BtnReturn_Click;
             btnLogout.Visible = false;
             SetFormsButtonsVisibility(false);
             SetUserInterfaceVisibility(false);
+        }
+
+        private void InitializeRoleSelection()
+        {
+            btnAdminPanel.Click += BtnAdminPanel_Click;
+            btnOperatorPanel.Click += BtnOperatorPanel_Click;
+            btnDriverPanel.Click += BtnDriverPanel_Click;
+            btnMasterPanel.Click += BtnMasterPanel_Click;
         }
 
         private void AddFormMoveFunctionality()
@@ -77,11 +93,39 @@ namespace CourseWorkSidebar
             {
                 string username = txtUsername.Text;
                 string password = txtPassword.Text;
-                if (_userRepository.AuthenticateUser(username, password))
+                var currentUser = _userRepository.GetUserByUsername(username);
+
+                if (currentUser != null && _userRepository.AuthenticateUser(username, password))
                 {
+                    // Перевірка на роль користувача при виборі форми входу
+                    if (btnDriverPanel.Focused && currentUser.Role != "Водій")
+                    {
+                        MessageBox.Show("Цей акаунт не є водієм. Будь ласка, увійдіть як водій.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    if (btnAdminPanel.Focused && currentUser.Role != "Адміністратор")
+                    {
+                        MessageBox.Show("Цей акаунт не є адміністратором. Будь ласка, увійдіть як дміністратор.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    if (btnOperatorPanel.Focused && currentUser.Role != "Оператор")
+                    {
+                        MessageBox.Show("Цей акаунт не є оператором. Будь ласка, увійдіть як оператор.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    if (btnMasterPanel.Focused && currentUser.Role != "Майстер")
+                    {
+                        MessageBox.Show("Цей акаунт не є майстром. Будь ласка, увійдіть як майстер.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
                     MessageBox.Show("Вхід успішний!", "Інформація", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     SetUserInterfaceVisibility(true);
                     ClearLoginFields();
+                    LoadUserSpecificForm(currentUser);
                 }
                 else
                 {
@@ -104,7 +148,8 @@ namespace CourseWorkSidebar
                 var newUser = new User
                 {
                     Username = username,
-                    PasswordHash = password
+                    PasswordHash = password,
+                    Role = "Адміністратор"
                 };
                 _userRepository.AddUser(newUser);
 
@@ -121,8 +166,15 @@ namespace CourseWorkSidebar
             }
             SetFormsButtonsVisibility(false);
             SetUserInterfaceVisibility(false);
-            SetLoginInterfaceVisibility(true);
+            SetLoginInterfaceVisibility(false);
+            SetRoleSelectionVisibility(true);
             ClearLoginFields();
+        }
+
+        private void BtnReturn_Click(object sender, EventArgs e)
+        {
+            SetRoleSelectionVisibility(true);
+            SetLoginInterfaceVisibility(false);
         }
 
         private void SetFormsButtonsVisibility(bool visible)
@@ -149,6 +201,21 @@ namespace CourseWorkSidebar
             btnLogin.Visible = visible;
             pnSignUp.Visible = visible;
             btnSignUp.Visible = visible;
+            btnReturn.Visible = visible;
+        }
+
+        private void SetRoleSelectionVisibility(bool visible)
+        {
+            btnAdminPanel.Visible = visible;
+            btnOperatorPanel.Visible = visible;
+            btnDriverPanel.Visible = visible;
+            btnMasterPanel.Visible = visible;
+        }
+
+        private void SetInitialVisibility()
+        {
+            SetRoleSelectionVisibility(true);
+            SetLoginInterfaceVisibility(false);
         }
 
         private void ClearLoginFields()
@@ -324,6 +391,116 @@ namespace CourseWorkSidebar
             operators = null;
         }
 
+        private void BtnAdminPanel_Click(object sender, EventArgs e)
+        {
+            SetRoleSelectionVisibility(false);
+            SetLoginInterfaceVisibility(true);
+        }
+
+        private void BtnOperatorPanel_Click(object sender, EventArgs e)
+        {
+            SetRoleSelectionVisibility(false);
+            SetLoginInterfaceVisibility(true);
+        }
+
+        private void BtnDriverPanel_Click(object sender, EventArgs e)
+        {
+            SetRoleSelectionVisibility(false);
+            SetLoginInterfaceVisibility(true);
+        }
+
+        private void BtnMasterPanel_Click(object sender, EventArgs e)
+        {
+            SetRoleSelectionVisibility(false);
+            SetLoginInterfaceVisibility(true);
+        }
+
+        private void LoadUserSpecificForm(User currentUser)
+        {
+            if (currentUser.Role == "Водій")
+            {
+                var driverRepository = new DriversRepository();
+                var driver = driverRepository.GetDriverById(currentUser.UserID);
+
+                if (driver == null)
+                {
+                    MessageBox.Show("Водій не знайдений.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (driverUser == null)
+                {
+                    driverUser = new DriverUserForm(driver);
+                    driverUser.FormClosed += DriverUser_FormClosed;
+                    driverUser.MdiParent = this;
+                    driverUser.Dock = DockStyle.Fill;
+                    driverUser.Show();
+                }
+                else
+                {
+                    driverUser.Activate();
+                }
+            }
+            else if (currentUser.Role == "Оператор")
+            {
+                if (operatorUser == null)
+                {
+                    operatorUser = new OperatorUserForm();
+                    operatorUser.FormClosed += OperatorUser_FormClosed;
+                    operatorUser.MdiParent = this;
+                    operatorUser.Dock = DockStyle.Fill;
+                    operatorUser.Show();
+                }
+                else
+                {
+                    operatorUser.Activate();
+                }
+            }
+            else if (currentUser.Role == "Майстер")
+            {
+                if (masterUser == null)
+                {
+                    var masterRepository = new MastersRepository();
+                    var master = masterRepository.GetMasterById(currentUser.UserID);
+
+                    if (master == null)
+                    {
+                        MessageBox.Show("Майстер не знайдений.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    masterUser = new MasterUserForm(master);
+                    masterUser.FormClosed += MasterUser_FormClosed;
+                    masterUser.MdiParent = this;
+                    masterUser.Dock = DockStyle.Fill;
+                    masterUser.Show();
+                }
+                else
+                {
+                    masterUser.Activate();
+                }
+            }
+            else if (currentUser.Role == "Адміністратор")
+            {
+                SetFormsButtonsVisibility(true);
+            }
+        }
+
+        private void DriverUser_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            driverUser = null;
+        }
+
+        private void OperatorUser_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            operatorUser = null;
+        }
+
+        private void MasterUser_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            masterUser = null;
+        }
+
         private void SetPlaceholderTexts()
         {
             SetPlaceholder(txtUsername, "Логін");
@@ -366,7 +543,5 @@ namespace CourseWorkSidebar
         {
             SetPlaceholderTexts();
         }
-
-
     }
 }
