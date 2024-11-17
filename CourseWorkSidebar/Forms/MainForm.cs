@@ -34,7 +34,6 @@ namespace CourseWorkSidebar
             InitializeComponent();
             _userRepository = new UserRepository();
             InitializeLogin();
-            InitializeRoleSelection();
             mdiProp();
             AddFormMoveFunctionality();
             SetInitialVisibility();
@@ -59,18 +58,9 @@ namespace CourseWorkSidebar
             btnLogin.Click += BtnLogIn_Click;
             btnSignUp.Click += BtnSignUp_Click;
             btnLogout.Click += BtnLogout_Click;
-            btnReturn.Click += BtnReturn_Click;
             btnLogout.Visible = false;
             SetFormsButtonsVisibility(false);
             SetUserInterfaceVisibility(false);
-        }
-
-        private void InitializeRoleSelection()
-        {
-            btnAdminPanel.Click += BtnAdminPanel_Click;
-            btnOperatorPanel.Click += BtnOperatorPanel_Click;
-            btnDriverPanel.Click += BtnDriverPanel_Click;
-            btnMasterPanel.Click += BtnMasterPanel_Click;
         }
 
         private void AddFormMoveFunctionality()
@@ -141,15 +131,8 @@ namespace CourseWorkSidebar
             }
             SetFormsButtonsVisibility(false);
             SetUserInterfaceVisibility(false);
-            SetLoginInterfaceVisibility(false);
-            SetRoleSelectionVisibility(true);
+            SetLoginInterfaceVisibility(true);
             ClearLoginFields();
-        }
-
-        private void BtnReturn_Click(object sender, EventArgs e)
-        {
-            SetRoleSelectionVisibility(true);
-            SetLoginInterfaceVisibility(false);
         }
 
         private void SetFormsButtonsVisibility(bool visible)
@@ -198,21 +181,11 @@ namespace CourseWorkSidebar
             btnLogin.Visible = visible;
             pnSignUp.Visible = visible;
             btnSignUp.Visible = visible;
-            btnReturn.Visible = visible;
-        }
-
-        private void SetRoleSelectionVisibility(bool visible)
-        {
-            btnAdminPanel.Visible = visible;
-            btnOperatorPanel.Visible = visible;
-            btnDriverPanel.Visible = visible;
-            btnMasterPanel.Visible = visible;
         }
 
         private void SetInitialVisibility()
         {
-            SetRoleSelectionVisibility(true);
-            SetLoginInterfaceVisibility(false);
+            SetLoginInterfaceVisibility(true);
         }
 
         private void ClearLoginFields()
@@ -386,30 +359,6 @@ namespace CourseWorkSidebar
         private void Operators_FormClosed(object sender, FormClosedEventArgs e)
         {
             operators = null;
-        }
-
-        private void BtnAdminPanel_Click(object sender, EventArgs e)
-        {
-            SetRoleSelectionVisibility(false);
-            SetLoginInterfaceVisibility(true);
-        }
-
-        private void BtnOperatorPanel_Click(object sender, EventArgs e)
-        {
-            SetRoleSelectionVisibility(false);
-            SetLoginInterfaceVisibility(true);
-        }
-
-        private void BtnDriverPanel_Click(object sender, EventArgs e)
-        {
-            SetRoleSelectionVisibility(false);
-            SetLoginInterfaceVisibility(true);
-        }
-
-        private void BtnMasterPanel_Click(object sender, EventArgs e)
-        {
-            SetRoleSelectionVisibility(false);
-            SetLoginInterfaceVisibility(true);
         }
 
         private void LoadUserSpecificForm(User currentUser)
