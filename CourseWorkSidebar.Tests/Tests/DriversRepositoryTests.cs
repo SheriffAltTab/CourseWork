@@ -95,7 +95,7 @@ namespace CourseWorkSidebar.Tests
                 DriverID = 2,
                 FirstName = "Іван",
                 LastName = "Петренко",
-                LicenseNumber = "A123456", // Duplicate license number
+                LicenseNumber = "A123456",
                 BirthDate = new DateTime(1990, 1, 1),
                 HireDate = DateTime.Now,
                 WorkingDays = "Пн, Вт, Ср",
@@ -192,8 +192,8 @@ namespace CourseWorkSidebar.Tests
             _repository.UpdateDriver(driver);
 
             // Assert
-            Assert.AreEqual("Петренко", driver.LastName); // Перевіряємо, що LastName було оновлено
-            _mockContext.Verify(m => m.SaveChanges(), Times.Once); // Перевіряємо, що SaveChanges було викликано
+            Assert.AreEqual("Петренко", driver.LastName);
+            _mockContext.Verify(m => m.SaveChanges(), Times.Once);
         }
 
     }
