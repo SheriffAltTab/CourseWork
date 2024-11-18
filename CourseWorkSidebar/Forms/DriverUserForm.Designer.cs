@@ -31,6 +31,7 @@ namespace CourseWorkSidebar.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DriverUserForm));
             this.dataGridViewSchedule = new System.Windows.Forms.DataGridView();
             this.dataGridViewVehicles = new System.Windows.Forms.DataGridView();
             this.txtFaultDescription = new System.Windows.Forms.TextBox();
@@ -126,6 +127,7 @@ namespace CourseWorkSidebar.Forms
             this.Controls.Add(this.txtFaultDescription);
             this.Controls.Add(this.dataGridViewVehicles);
             this.Controls.Add(this.dataGridViewSchedule);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DriverUserForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSchedule)).EndInit();

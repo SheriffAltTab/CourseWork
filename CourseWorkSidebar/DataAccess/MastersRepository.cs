@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using CourseWorkSidebar.Models;
+using static ReaLTaiizor.Controls.ExtendedPanel;
 
 namespace CourseWorkSidebar.DataAccess
 {
@@ -28,16 +30,35 @@ namespace CourseWorkSidebar.DataAccess
         {
             return _context.Masters.FirstOrDefault(m => m.MasterID == id);
         }
-
         public void AddMaster(Master master)
         {
+            if (string.IsNullOrWhiteSpace(master.FirstName) || string.IsNullOrWhiteSpace(master.LastName) ||
+            master.BirthDate == default(DateTime) || master.HireDate == default(DateTime) || 
+            string.IsNullOrWhiteSpace(master.Specialty) ||string.IsNullOrWhiteSpace(master.WorkingDays))
+            {
+                throw new InvalidOperationException("Некоректні дані для майстра. Усі поля повинні бути заповнені.");
+            }
+
             _context.Masters.Add(master);
             _context.SaveChanges();
         }
 
         public void UpdateMaster(Master master)
         {
-            _context.Entry(master).State = EntityState.Modified;
+            var existingMaster = _context.Masters.Find(master.MasterID);
+            if (existingMaster == null)
+            {
+                throw new InvalidOperationException("Майстер не знайдений.");
+            }
+
+            // Оновлюємо властивості існуючого майстра
+            existingMaster.FirstName = master.FirstName;
+            existingMaster.LastName = master.LastName;
+            existingMaster.BirthDate = master.BirthDate;
+            existingMaster.HireDate = master.HireDate;
+            existingMaster.Specialty = master.Specialty;
+            existingMaster.WorkingDays = master.WorkingDays;
+
             _context.SaveChanges();
         }
 

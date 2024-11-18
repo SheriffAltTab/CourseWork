@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Data.Entity;
@@ -19,7 +20,7 @@ namespace CourseWorkSidebar.Tests
         {
             var faults = new List<Fault>
             {
-                new Fault { FaultID = 1, DriverID = 1, VehicleID = 1, Description = "Engine issue", ReportDate = System.DateTime.Now }
+                new Fault { FaultID = 1, DriverID = 1, VehicleID = 1, Description = "Engine issue", ReportDate = DateTime.Now }
             };
             _mockFaultsDbSet = MockHelpers.CreateMockDbSet(faults);
             _mockContext = new Mock<DatabaseContext>();
@@ -28,10 +29,10 @@ namespace CourseWorkSidebar.Tests
         }
 
         [TestMethod]
-        public void AddFault_WhenCalled_AddsFaultToContext()
+        public void AddFault_WhenCalledWithValidData_AddsFaultToContext()
         {
             // Arrange
-            var fault = new Fault { FaultID = 2, DriverID = 2, VehicleID = 2, Description = "Brake issue", ReportDate = System.DateTime.Now };
+            var fault = new Fault { FaultID = 2, DriverID = 2, VehicleID = 2, Description = "Brake issue", ReportDate = DateTime.Now };
 
             // Act
             _repository.AddFault(fault);
@@ -39,6 +40,17 @@ namespace CourseWorkSidebar.Tests
             // Assert
             _mockFaultsDbSet.Verify(m => m.Add(It.IsAny<Fault>()), Times.Once);
             _mockContext.Verify(m => m.SaveChanges(), Times.Once);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void AddFault_WhenCalledWithInvalidData_ThrowsException()
+        {
+            // Arrange
+            var fault = new Fault { FaultID = 3, DriverID = 0, VehicleID = 0, Description = "", ReportDate = default(DateTime) };
+
+            // Act
+            _repository.AddFault(fault);
         }
 
         [TestMethod]
@@ -55,7 +67,7 @@ namespace CourseWorkSidebar.Tests
         public void DeleteFault_WhenFaultExists_RemovesFaultFromContext()
         {
             // Arrange
-            var fault = new Fault { FaultID = 1, DriverID = 1, VehicleID = 1, Description = "Engine issue", ReportDate = System.DateTime.Now };
+            var fault = new Fault { FaultID = 1, DriverID = 1, VehicleID = 1, Description = "Engine issue", ReportDate = DateTime.Now };
             _mockFaultsDbSet.Setup(m => m.Find(It.IsAny<int>())).Returns(fault);
 
             // Act
@@ -70,7 +82,7 @@ namespace CourseWorkSidebar.Tests
         public void GetFaultById_WhenFaultExists_ReturnsCorrectFault()
         {
             // Arrange
-            var fault = new Fault { FaultID = 1, DriverID = 1, VehicleID = 1, Description = "Engine issue", ReportDate = System.DateTime.Now };
+            var fault = new Fault { FaultID = 1, DriverID = 1, VehicleID = 1, Description = "Engine issue", ReportDate = DateTime.Now };
             _mockFaultsDbSet.Setup(m => m.Find(It.IsAny<int>())).Returns(fault);
 
             // Act
@@ -89,6 +101,22 @@ namespace CourseWorkSidebar.Tests
 
             // Assert
             Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void AddFault_WhenFaultAlreadyExists_ThrowsException()
+        {
+            // Arrange
+            var existingFault = new Fault { FaultID = 1, DriverID = 1, VehicleID = 1, Description = "Engine issue", ReportDate = DateTime.Now };
+            var faults = new List<Fault> { existingFault };
+            _mockFaultsDbSet = MockHelpers.CreateMockDbSet(faults);
+            _mockContext.Setup(m => m.Faults).Returns(_mockFaultsDbSet.Object);
+
+            var newFault = new Fault { FaultID = 1, DriverID = 1, VehicleID = 1, Description = "Brake issue", ReportDate = DateTime.Now };
+
+            // Act
+            _repository.AddFault(newFault);
         }
     }
 }

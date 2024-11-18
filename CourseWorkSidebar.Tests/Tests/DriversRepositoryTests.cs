@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Data.Entity;
@@ -25,17 +26,17 @@ namespace CourseWorkSidebar.Tests
         }
 
         [TestMethod]
-        public void AddDriver_WhenCalled_AddsDriverToContext()
+        public void AddDriver_WhenCalledWithValidData_AddsDriverToContext()
         {
             // Arrange
             var driver = new Driver
             {
                 DriverID = 1,
-                FirstName = "John",
-                LastName = "Doe",
-                BirthDate = new System.DateTime(1985, 1, 1),
+                FirstName = "Олександр",
+                LastName = "Ковальчук",
+                BirthDate = new DateTime(1985, 1, 1),
                 LicenseNumber = "A123456",
-                HireDate = System.DateTime.Now,
+                HireDate = DateTime.Now,
                 WorkingDays = "Пн, Вт, Ср",
                 WorkingAreas = "Центр, Дружба"
             };
@@ -49,13 +50,70 @@ namespace CourseWorkSidebar.Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void AddDriver_WhenCalledWithInvalidData_ThrowsException()
+        {
+            // Arrange
+            var driver = new Driver
+            {
+                DriverID = 1,
+                FirstName = "",
+                LastName = "",
+                BirthDate = new DateTime(),
+                LicenseNumber = "",
+                HireDate = DateTime.Now,
+                WorkingDays = "",
+                WorkingAreas = ""
+            };
+
+            // Act
+            _repository.AddDriver(driver);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void AddDriver_WhenCalledWithExistingLicenseNumber_ThrowsException()
+        {
+            // Arrange
+            var existingDriver = new Driver
+            {
+                DriverID = 1,
+                FirstName = "Олександр",
+                LastName = "Ковальчук",
+                LicenseNumber = "A123456",
+                BirthDate = new DateTime(1985, 1, 1),
+                HireDate = DateTime.Now,
+                WorkingDays = "Пн, Вт, Ср",
+                WorkingAreas = "Центр, Дружба"
+            };
+            var drivers = new List<Driver> { existingDriver };
+            _mockDriversDbSet = MockHelpers.CreateMockDbSet(drivers);
+            _mockContext.Setup(m => m.Drivers).Returns(_mockDriversDbSet.Object);
+
+            var newDriver = new Driver
+            {
+                DriverID = 2,
+                FirstName = "Іван",
+                LastName = "Петренко",
+                LicenseNumber = "A123456", // Duplicate license number
+                BirthDate = new DateTime(1990, 1, 1),
+                HireDate = DateTime.Now,
+                WorkingDays = "Пн, Вт, Ср",
+                WorkingAreas = "Аляска"
+            };
+
+            // Act
+            _repository.AddDriver(newDriver);
+        }
+
+        [TestMethod]
         public void GetAllDrivers_WhenCalled_ReturnsAllDrivers()
         {
             // Arrange
             var drivers = new List<Driver>
             {
-                new Driver { DriverID = 1, FirstName = "John", LastName = "Doe" },
-                new Driver { DriverID = 2, FirstName = "Jane", LastName = "Smith" }
+                new Driver { DriverID = 1, FirstName = "Олександр", LastName = "Ковальчук" },
+                new Driver { DriverID = 2, FirstName = "Іван", LastName = "Петренко" }
             };
             _mockDriversDbSet = MockHelpers.CreateMockDbSet(drivers);
             _mockContext.Setup(m => m.Drivers).Returns(_mockDriversDbSet.Object);
@@ -71,7 +129,7 @@ namespace CourseWorkSidebar.Tests
         public void DeleteDriver_WhenDriverExists_RemovesDriverFromContext()
         {
             // Arrange
-            var driver = new Driver { DriverID = 1, FirstName = "John", LastName = "Doe" };
+            var driver = new Driver { DriverID = 1, FirstName = "Олександр", LastName = "Ковальчук" };
             var drivers = new List<Driver> { driver };
             _mockDriversDbSet = MockHelpers.CreateMockDbSet(drivers);
             _mockContext.Setup(m => m.Drivers).Returns(_mockDriversDbSet.Object);
@@ -89,7 +147,7 @@ namespace CourseWorkSidebar.Tests
         public void GetDriverById_WhenDriverExists_ReturnsDriver()
         {
             // Arrange
-            var driver = new Driver { DriverID = 1, FirstName = "John", LastName = "Doe" };
+            var driver = new Driver { DriverID = 1, FirstName = "Олександр", LastName = "Ковальчук" };
             var drivers = new List<Driver> { driver };
             _mockDriversDbSet = MockHelpers.CreateMockDbSet(drivers);
             _mockContext.Setup(m => m.Drivers).Returns(_mockDriversDbSet.Object);
@@ -100,8 +158,8 @@ namespace CourseWorkSidebar.Tests
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual("John", result.FirstName);
-            Assert.AreEqual("Doe", result.LastName);
+            Assert.AreEqual("Олександр", result.FirstName);
+            Assert.AreEqual("Ковальчук", result.LastName);
         }
 
         [TestMethod]
@@ -118,5 +176,25 @@ namespace CourseWorkSidebar.Tests
             // Assert
             Assert.IsNull(result);
         }
+
+        [TestMethod]
+        public void UpdateDriver_WhenCalledWithValidData_UpdatesDriverInContext()
+        {
+            // Arrange
+            var driver = new Driver { DriverID = 1, FirstName = "Олександр", LastName = "Ковальчук", LicenseNumber = "A123456" };
+            var drivers = new List<Driver> { driver };
+            _mockDriversDbSet = MockHelpers.CreateMockDbSet(drivers);
+            _mockContext.Setup(m => m.Drivers).Returns(_mockDriversDbSet.Object);
+            _mockDriversDbSet.Setup(m => m.Find(It.IsAny<int>())).Returns(driver);
+
+            // Act
+            driver.LastName = "Петренко";
+            _repository.UpdateDriver(driver);
+
+            // Assert
+            Assert.AreEqual("Петренко", driver.LastName); // Перевіряємо, що LastName було оновлено
+            _mockContext.Verify(m => m.SaveChanges(), Times.Once); // Перевіряємо, що SaveChanges було викликано
+        }
+
     }
 }

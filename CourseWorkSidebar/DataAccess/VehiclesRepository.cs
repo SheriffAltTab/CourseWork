@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using CourseWorkSidebar.Models;
+using static ReaLTaiizor.Controls.ExtendedPanel;
 
 namespace CourseWorkSidebar.DataAccess
 {
@@ -32,13 +33,39 @@ namespace CourseWorkSidebar.DataAccess
 
         public void AddVehicle(Vehicle vehicle)
         {
+            if (string.IsNullOrWhiteSpace(vehicle.LicensePlate) || string.IsNullOrWhiteSpace(vehicle.Brand) ||
+            string.IsNullOrWhiteSpace(vehicle.Model) || vehicle.LastServiceDate == default(DateTime) || string.IsNullOrWhiteSpace(vehicle.LastServiceDetails))
+            {
+                throw new InvalidOperationException("Некоректні дані для автомобіля. Усі поля повинні бути заповнені.");
+            }
+
+            if (_context.Vehicles.Any(d => d.LicensePlate == vehicle.LicensePlate))
+            {
+                throw new System.InvalidOperationException("Автомобіль з таким номерним знаком вже існує.");
+            }
+
             _context.Vehicles.Add(vehicle);
             _context.SaveChanges();
         }
 
         public void UpdateVehicle(Vehicle vehicle)
         {
-            _context.Entry(vehicle).State = EntityState.Modified;
+            var existingVehicle = _context.Vehicles.Find(vehicle.VehicleID);
+            if (existingVehicle == null)
+            {
+                throw new InvalidOperationException("Автомобіль не знайдений.");
+            }
+
+            // Оновлюємо властивості існуючого автомобіля
+            existingVehicle.LicensePlate = vehicle.LicensePlate;
+            existingVehicle.Brand = vehicle.Brand;
+            existingVehicle.Model = vehicle.Model;
+            existingVehicle.Year = vehicle.Year;
+            existingVehicle.DriverID = vehicle.DriverID;
+            existingVehicle.AssignedMaster = vehicle.AssignedMaster;
+            existingVehicle.LastServiceDate = vehicle.LastServiceDate;
+            existingVehicle.LastServiceDetails = vehicle.LastServiceDetails;
+
             _context.SaveChanges();
         }
 

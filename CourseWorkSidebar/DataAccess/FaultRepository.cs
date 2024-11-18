@@ -32,6 +32,16 @@ namespace CourseWorkSidebar.DataAccess
 
         public void AddFault(Fault fault)
         {
+            if (fault.DriverID <= 0 || fault.VehicleID <= 0 || string.IsNullOrWhiteSpace(fault.Description) || fault.ReportDate == default(DateTime))
+            {
+                throw new InvalidOperationException("Некоректні дані для несправності. Усі поля повинні бути заповнені.");
+            }
+
+            if (_context.Faults.Any(f => f.FaultID == fault.FaultID))
+            {
+                throw new InvalidOperationException("Несправність з таким ID вже існує.");
+            }
+
             _context.Faults.Add(fault);
             _context.SaveChanges();
         }

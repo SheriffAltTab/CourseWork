@@ -29,6 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OperatorUserForm));
             this.dataGridViewDrivers = new System.Windows.Forms.DataGridView();
             this.dataGridViewMasters = new System.Windows.Forms.DataGridView();
             this.dataGridViewVehicles = new System.Windows.Forms.DataGridView();
@@ -42,7 +43,7 @@
             // 
             this.dataGridViewDrivers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewDrivers.Location = new System.Drawing.Point(16, 15);
-            this.dataGridViewDrivers.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridViewDrivers.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewDrivers.Name = "dataGridViewDrivers";
             this.dataGridViewDrivers.RowHeadersWidth = 51;
             this.dataGridViewDrivers.Size = new System.Drawing.Size(1427, 185);
@@ -52,7 +53,7 @@
             // 
             this.dataGridViewMasters.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewMasters.Location = new System.Drawing.Point(16, 222);
-            this.dataGridViewMasters.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridViewMasters.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewMasters.Name = "dataGridViewMasters";
             this.dataGridViewMasters.RowHeadersWidth = 51;
             this.dataGridViewMasters.Size = new System.Drawing.Size(1427, 185);
@@ -62,7 +63,7 @@
             // 
             this.dataGridViewVehicles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewVehicles.Location = new System.Drawing.Point(16, 428);
-            this.dataGridViewVehicles.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridViewVehicles.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewVehicles.Name = "dataGridViewVehicles";
             this.dataGridViewVehicles.RowHeadersWidth = 51;
             this.dataGridViewVehicles.Size = new System.Drawing.Size(1427, 185);
@@ -71,7 +72,7 @@
             // btnAssignVehicle
             // 
             this.btnAssignVehicle.Location = new System.Drawing.Point(16, 640);
-            this.btnAssignVehicle.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAssignVehicle.Margin = new System.Windows.Forms.Padding(4);
             this.btnAssignVehicle.Name = "btnAssignVehicle";
             this.btnAssignVehicle.Size = new System.Drawing.Size(160, 37);
             this.btnAssignVehicle.TabIndex = 3;
@@ -88,7 +89,8 @@
             this.Controls.Add(this.dataGridViewVehicles);
             this.Controls.Add(this.dataGridViewMasters);
             this.Controls.Add(this.dataGridViewDrivers);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "OperatorUserForm";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDrivers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMasters)).EndInit();

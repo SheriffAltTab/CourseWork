@@ -296,6 +296,7 @@ namespace CourseWorkSidebar
             this.ClientSize = new System.Drawing.Size(1067, 450);
             this.Controls.Add(this.tableLayoutPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "OperatorsForm";
             this.Text = "Управління операторами";

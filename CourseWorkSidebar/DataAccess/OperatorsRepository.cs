@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using CourseWorkSidebar.Models;
+using static ReaLTaiizor.Controls.ExtendedPanel;
 
 namespace CourseWorkSidebar.DataAccess
 {
@@ -27,23 +29,35 @@ namespace CourseWorkSidebar.DataAccess
         {
             return _context.Operators.FirstOrDefault(o => o.OperatorID == id);
         }
-
         public void AddOperator(Operator @operator)
         {
-            if (_context.Operators != null)
+            if (string.IsNullOrWhiteSpace(@operator.FirstName) || string.IsNullOrWhiteSpace(@operator.LastName) ||
+            @operator.BirthDate == default(DateTime) || @operator.HireDate == default(DateTime) || 
+            string.IsNullOrWhiteSpace(@operator.WorkingDays))
             {
-                _context.Operators.Add(@operator);
-                _context.SaveChanges();
+                throw new InvalidOperationException("Некоректні дані для оператора. Усі поля повинні бути заповнені.");
             }
+
+            _context.Operators.Add(@operator);
+            _context.SaveChanges();
         }
 
         public void UpdateOperator(Operator @operator)
         {
-            if (_context.Entry(@operator) != null)
+            var existingOperator = _context.Operators.Find(@operator.OperatorID);
+            if (existingOperator == null)
             {
-                _context.Entry(@operator).State = EntityState.Modified;
-                _context.SaveChanges();
+                throw new InvalidOperationException("Оператор не знайдений.");
             }
+
+            // Оновлюємо властивості існуючого оператора
+            existingOperator.FirstName = @operator.FirstName;
+            existingOperator.LastName = @operator.LastName;
+            existingOperator.BirthDate = @operator.BirthDate;
+            existingOperator.HireDate = @operator.HireDate;
+            existingOperator.WorkingDays = @operator.WorkingDays;
+
+            _context.SaveChanges();
         }
 
         public void DeleteOperator(int id)

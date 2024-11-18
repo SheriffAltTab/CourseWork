@@ -2,6 +2,7 @@
 using CourseWorkSidebar.Models;
 using System.Data.Entity;
 using BCrypt.Net;
+using System;
 
 namespace CourseWorkSidebar.DataAccess
 {
@@ -25,15 +26,20 @@ namespace CourseWorkSidebar.DataAccess
 
         public void AddUser(User user)
         {
+            if (string.IsNullOrWhiteSpace(user.Username) || string.IsNullOrWhiteSpace(user.PasswordHash) || string.IsNullOrWhiteSpace(user.Role))
+            {
+                throw new InvalidOperationException("Некоректні дані для користувача. Усі поля повинні бути заповнені.");
+            }
+
             if (_context.Users != null)
             {
                 user.PasswordHash = HashPassword(user.PasswordHash);
-                
+
                 if (string.IsNullOrEmpty(user.Role))
                 {
                     user.Role = "Адміністратор";
                 }
-                
+
                 _context.Users.Add(user);
                 _context.SaveChanges();
             }

@@ -31,6 +31,7 @@ namespace CourseWorkSidebar.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MasterUserForm));
             this.dataGridViewAssignedVehicles = new System.Windows.Forms.DataGridView();
             this.dataGridViewReportedFaults = new System.Windows.Forms.DataGridView();
             this.txtResolvedDescription = new System.Windows.Forms.TextBox();
@@ -126,6 +127,7 @@ namespace CourseWorkSidebar.Forms
             this.Controls.Add(this.txtResolvedDescription);
             this.Controls.Add(this.dataGridViewReportedFaults);
             this.Controls.Add(this.dataGridViewAssignedVehicles);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MasterUserForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAssignedVehicles)).EndInit();

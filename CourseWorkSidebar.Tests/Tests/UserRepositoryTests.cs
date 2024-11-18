@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Data.Entity;
@@ -25,7 +26,7 @@ namespace CourseWorkSidebar.Tests
         }
 
         [TestMethod]
-        public void AddUser_WhenCalled_AddsUserToContext()
+        public void AddUser_WhenCalledWithValidData_AddsUserToContext()
         {
             // Arrange
             var user = new User { UserID = 1, Username = "testuser", PasswordHash = "hashedpassword", Role = "Адміністратор" };
@@ -39,21 +40,14 @@ namespace CourseWorkSidebar.Tests
         }
 
         [TestMethod]
-        public void AddUser_WithDifferentRoles_AddsUserToContext()
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void AddUser_WhenCalledWithInvalidData_ThrowsException()
         {
             // Arrange
-            var admin = new User { UserID = 1, Username = "adminuser", PasswordHash = "hashedpassword", Role = "Адміністратор" };
-            var driver = new User { UserID = 2, Username = "driveruser", PasswordHash = "hashedpassword", Role = "Водій" };
-            var operatorUser = new User { UserID = 3, Username = "operatoruser", PasswordHash = "hashedpassword", Role = "Оператор" };
+            var user = new User { UserID = 2, Username = "", PasswordHash = "", Role = "" };
 
             // Act
-            _repository.AddUser(admin);
-            _repository.AddUser(driver);
-            _repository.AddUser(operatorUser);
-
-            // Assert
-            _mockUsersDbSet.Verify(m => m.Add(It.IsAny<User>()), Times.Exactly(3));
-            _mockContext.Verify(m => m.SaveChanges(), Times.Exactly(3));
+            _repository.AddUser(user);
         }
 
         [TestMethod]
@@ -75,6 +69,21 @@ namespace CourseWorkSidebar.Tests
         }
 
         [TestMethod]
+        public void IsUsernameTaken_WhenUserDoesNotExist_ReturnsFalse()
+        {
+            // Arrange
+            var users = new List<User>();
+            _mockUsersDbSet = MockHelpers.CreateMockDbSet(users);
+            _mockContext.Setup(m => m.Users).Returns(_mockUsersDbSet.Object);
+
+            // Act
+            var result = _repository.IsUsernameTaken("nonexistentuser");
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
         public void AuthenticateUser_WhenCredentialsAreCorrect_ReturnsTrue()
         {
             // Arrange
@@ -91,40 +100,50 @@ namespace CourseWorkSidebar.Tests
         }
 
         [TestMethod]
-        public void AuthenticateUser_WithDifferentRoles_ReturnsTrueForCorrectCredentials()
+        public void AuthenticateUser_WhenCredentialsAreIncorrect_ReturnsFalse()
         {
             // Arrange
-            var admin = new User { UserID = 1, Username = "adminuser", PasswordHash = BCrypt.Net.BCrypt.HashPassword("adminpassword"), Role = "Адміністратор" };
-            var driver = new User { UserID = 2, Username = "driveruser", PasswordHash = BCrypt.Net.BCrypt.HashPassword("driverpassword"), Role = "Водій" };
-            var operatorUser = new User { UserID = 3, Username = "operatoruser", PasswordHash = BCrypt.Net.BCrypt.HashPassword("operatorpassword"), Role = "Оператор" };
-            var users = new List<User> { admin, driver, operatorUser };
+            var user = new User { UserID = 1, Username = "testuser", PasswordHash = BCrypt.Net.BCrypt.HashPassword("password") };
+            var users = new List<User> { user };
             _mockUsersDbSet = MockHelpers.CreateMockDbSet(users);
             _mockContext.Setup(m => m.Users).Returns(_mockUsersDbSet.Object);
 
             // Act
-            var adminResult = _repository.AuthenticateUser("adminuser", "adminpassword");
-            var driverResult = _repository.AuthenticateUser("driveruser", "driverpassword");
-            var operatorResult = _repository.AuthenticateUser("operatoruser", "operatorpassword");
-
-            // Assert
-            Assert.IsTrue(adminResult);
-            Assert.IsTrue(driverResult);
-            Assert.IsTrue(operatorResult);
-        }
-
-        [TestMethod]
-        public void IsUsernameTaken_WhenUserDoesNotExist_ReturnsFalse()
-        {
-            // Arrange
-            var users = new List<User>();
-            _mockUsersDbSet = MockHelpers.CreateMockDbSet(users);
-            _mockContext.Setup(m => m.Users).Returns(_mockUsersDbSet.Object);
-
-            // Act
-            var result = _repository.IsUsernameTaken("nonexistentuser");
+            var result = _repository.AuthenticateUser("testuser", "wrongpassword");
 
             // Assert
             Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void GetUserByUsername_WhenUserExists_ReturnsCorrectUser()
+        {
+            // Arrange
+            var user = new User { UserID = 1, Username = "testuser", PasswordHash = "hashedpassword" };
+            var users = new List<User> { user };
+            _mockUsersDbSet = MockHelpers.CreateMockDbSet(users);
+            _mockContext.Setup(m => m.Users).Returns(_mockUsersDbSet.Object);
+
+            // Act
+            var result = _repository.GetUserByUsername("testuser");
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(user.UserID, result.UserID);
+        }
+
+        [TestMethod]
+        public void GetUserByUsername_WhenUserDoesNotExist_ReturnsNull()
+        {
+            // Arrange
+            _mockUsersDbSet.Setup(m => m.Find(It.IsAny<int>())).Returns((User)null);
+            _mockContext.Setup(m => m.Users).Returns(_mockUsersDbSet.Object);
+
+            // Act
+            var result = _repository.GetUserByUsername("nonexistentuser");
+
+            // Assert
+            Assert.IsNull(result);
         }
     }
 }

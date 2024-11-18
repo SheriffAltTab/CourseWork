@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Data.Entity;
 using CourseWorkSidebar.DataAccess;
 using CourseWorkSidebar.Models;
+using System.Linq;
 
 namespace CourseWorkSidebar.Tests
 {
@@ -19,7 +21,7 @@ namespace CourseWorkSidebar.Tests
         {
             var operators = new List<Operator>
             {
-                new Operator { OperatorID = 1, FirstName = "John", LastName = "Smith", BirthDate = new System.DateTime(1990, 1, 1), HireDate = new System.DateTime(2022, 1, 1), WorkingDays = "Mon, Tue, Wed" }
+                new Operator { OperatorID = 1, FirstName = "Іван", LastName = "Сидоренко", BirthDate = new DateTime(1990, 1, 1), HireDate = new DateTime(2022, 1, 1), WorkingDays = "Пн, Вт, Ср" }
             };
             _mockOperatorsDbSet = MockHelpers.CreateMockDbSet(operators);
             _mockContext = new Mock<DatabaseContext>();
@@ -28,10 +30,10 @@ namespace CourseWorkSidebar.Tests
         }
 
         [TestMethod]
-        public void AddOperator_WhenCalled_AddsOperatorToContext()
+        public void AddOperator_WhenCalledWithValidData_AddsOperatorToContext()
         {
             // Arrange
-            var @operator = new Operator { OperatorID = 2, FirstName = "Jane", LastName = "Doe", BirthDate = new System.DateTime(1992, 2, 2), HireDate = new System.DateTime(2022, 2, 2), WorkingDays = "Thu, Fri" };
+            var @operator = new Operator { OperatorID = 2, FirstName = "Ольга", LastName = "Петренко", BirthDate = new DateTime(1992, 2, 2), HireDate = new DateTime(2022, 2, 2), WorkingDays = "Чт, Пт" };
 
             // Act
             _repository.AddOperator(@operator);
@@ -39,6 +41,17 @@ namespace CourseWorkSidebar.Tests
             // Assert
             _mockOperatorsDbSet.Verify(m => m.Add(It.IsAny<Operator>()), Times.Once);
             _mockContext.Verify(m => m.SaveChanges(), Times.Once);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void AddOperator_WhenCalledWithInvalidData_ThrowsException()
+        {
+            // Arrange
+            var @operator = new Operator { OperatorID = 2, FirstName = "", LastName = "", BirthDate = new DateTime(), HireDate = new DateTime(), WorkingDays = "" };
+
+            // Act
+            _repository.AddOperator(@operator);
         }
 
         [TestMethod]
@@ -55,7 +68,7 @@ namespace CourseWorkSidebar.Tests
         public void DeleteOperator_WhenOperatorExists_RemovesOperatorFromContext()
         {
             // Arrange
-            var @operator = new Operator { OperatorID = 1, FirstName = "John", LastName = "Smith", BirthDate = new System.DateTime(1990, 1, 1), HireDate = new System.DateTime(2022, 1, 1) };
+            var @operator = new Operator { OperatorID = 1, FirstName = "Іван", LastName = "Сидоренко", BirthDate = new DateTime(1990, 1, 1), HireDate = new DateTime(2022, 1, 1) };
             _mockOperatorsDbSet.Setup(m => m.Find(It.IsAny<int>())).Returns(@operator);
 
             // Act
@@ -70,7 +83,7 @@ namespace CourseWorkSidebar.Tests
         public void GetOperatorById_WhenOperatorExists_ReturnsOperator()
         {
             // Arrange
-            var @operator = new Operator { OperatorID = 1, FirstName = "John", LastName = "Smith", BirthDate = new System.DateTime(1990, 1, 1), HireDate = new System.DateTime(2022, 1, 1) };
+            var @operator = new Operator { OperatorID = 1, FirstName = "Іван", LastName = "Сидоренко", BirthDate = new DateTime(1990, 1, 1), HireDate = new DateTime(2022, 1, 1) };
             _mockOperatorsDbSet.Setup(m => m.Find(It.IsAny<int>())).Returns(@operator);
 
             // Act
@@ -94,6 +107,22 @@ namespace CourseWorkSidebar.Tests
 
             // Assert
             Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void UpdateOperator_WhenCalledWithValidData_UpdatesOperatorInContext()
+        {
+            // Arrange
+            var @operator = new Operator { OperatorID = 1, FirstName = "Іван", LastName = "Сидоренко", BirthDate = new DateTime(1990, 1, 1), HireDate = new DateTime(2022, 1, 1) };
+            _mockOperatorsDbSet.Setup(m => m.Find(It.IsAny<int>())).Returns(@operator);
+
+            // Act
+            @operator.LastName = "Петренко";
+            _repository.UpdateOperator(@operator);
+
+            // Assert
+            Assert.AreEqual("Петренко", @operator.LastName);
+            _mockContext.Verify(m => m.SaveChanges(), Times.Once);
         }
     }
 }
