@@ -59,6 +59,11 @@ namespace CourseWorkSidebar
             this.btnLogin = new System.Windows.Forms.Button();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtUsername = new System.Windows.Forms.TextBox();
+            this.btnReturn = new System.Windows.Forms.Button();
+            this.btnOperatorPanel = new System.Windows.Forms.Button();
+            this.btnMasterPanel = new System.Windows.Forms.Button();
+            this.btnDriverPanel = new System.Windows.Forms.Button();
+            this.btnAdminPanel = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnHam)).BeginInit();
             this.sidebar.SuspendLayout();
@@ -404,10 +409,103 @@ namespace CourseWorkSidebar
             this.txtUsername.Size = new System.Drawing.Size(441, 22);
             this.txtUsername.TabIndex = 1;
             // 
+            // btnReturn
+            // 
+            this.btnReturn.BackColor = System.Drawing.Color.Black;
+            this.btnReturn.FlatAppearance.BorderSize = 0;
+            this.btnReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReturn.ForeColor = System.Drawing.Color.White;
+            this.btnReturn.Image = ((System.Drawing.Image)(resources.GetObject("btnReturn.Image")));
+            this.btnReturn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReturn.Location = new System.Drawing.Point(576, 363);
+            this.btnReturn.Name = "btnReturn";
+            this.btnReturn.Padding = new System.Windows.Forms.Padding(25, 0, 0, 0);
+            this.btnReturn.Size = new System.Drawing.Size(220, 65);
+            this.btnReturn.TabIndex = 10;
+            this.btnReturn.Text = "       Назад";
+            this.btnReturn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReturn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnReturn.UseVisualStyleBackColor = false;
+            // 
+            // btnOperatorPanel
+            // 
+            this.btnOperatorPanel.BackColor = System.Drawing.Color.Black;
+            this.btnOperatorPanel.FlatAppearance.BorderSize = 0;
+            this.btnOperatorPanel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOperatorPanel.ForeColor = System.Drawing.Color.White;
+            this.btnOperatorPanel.Image = ((System.Drawing.Image)(resources.GetObject("btnOperatorPanel.Image")));
+            this.btnOperatorPanel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnOperatorPanel.Location = new System.Drawing.Point(472, 202);
+            this.btnOperatorPanel.Name = "btnOperatorPanel";
+            this.btnOperatorPanel.Padding = new System.Windows.Forms.Padding(25, 0, 0, 0);
+            this.btnOperatorPanel.Size = new System.Drawing.Size(220, 65);
+            this.btnOperatorPanel.TabIndex = 7;
+            this.btnOperatorPanel.Text = "       Увійти як оператор";
+            this.btnOperatorPanel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnOperatorPanel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnOperatorPanel.UseVisualStyleBackColor = false;
+            // 
+            // btnMasterPanel
+            // 
+            this.btnMasterPanel.BackColor = System.Drawing.Color.Black;
+            this.btnMasterPanel.FlatAppearance.BorderSize = 0;
+            this.btnMasterPanel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMasterPanel.ForeColor = System.Drawing.Color.White;
+            this.btnMasterPanel.Image = ((System.Drawing.Image)(resources.GetObject("btnMasterPanel.Image")));
+            this.btnMasterPanel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnMasterPanel.Location = new System.Drawing.Point(693, 202);
+            this.btnMasterPanel.Name = "btnMasterPanel";
+            this.btnMasterPanel.Padding = new System.Windows.Forms.Padding(25, 0, 0, 0);
+            this.btnMasterPanel.Size = new System.Drawing.Size(220, 65);
+            this.btnMasterPanel.TabIndex = 9;
+            this.btnMasterPanel.Text = "       Увійти як майстер";
+            this.btnMasterPanel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnMasterPanel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnMasterPanel.UseVisualStyleBackColor = false;
+            // 
+            // btnDriverPanel
+            // 
+            this.btnDriverPanel.BackColor = System.Drawing.Color.Black;
+            this.btnDriverPanel.FlatAppearance.BorderSize = 0;
+            this.btnDriverPanel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDriverPanel.ForeColor = System.Drawing.Color.White;
+            this.btnDriverPanel.Image = ((System.Drawing.Image)(resources.GetObject("btnDriverPanel.Image")));
+            this.btnDriverPanel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDriverPanel.Location = new System.Drawing.Point(693, 131);
+            this.btnDriverPanel.Name = "btnDriverPanel";
+            this.btnDriverPanel.Padding = new System.Windows.Forms.Padding(25, 0, 0, 0);
+            this.btnDriverPanel.Size = new System.Drawing.Size(220, 65);
+            this.btnDriverPanel.TabIndex = 8;
+            this.btnDriverPanel.Text = "       Увійти як водій";
+            this.btnDriverPanel.UseVisualStyleBackColor = false;
+            // 
+            // btnAdminPanel
+            // 
+            this.btnAdminPanel.BackColor = System.Drawing.Color.Black;
+            this.btnAdminPanel.FlatAppearance.BorderSize = 0;
+            this.btnAdminPanel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAdminPanel.ForeColor = System.Drawing.Color.White;
+            this.btnAdminPanel.Image = ((System.Drawing.Image)(resources.GetObject("btnAdminPanel.Image")));
+            this.btnAdminPanel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAdminPanel.Location = new System.Drawing.Point(472, 131);
+            this.btnAdminPanel.Name = "btnAdminPanel";
+            this.btnAdminPanel.Padding = new System.Windows.Forms.Padding(25, 0, 0, 0);
+            this.btnAdminPanel.Size = new System.Drawing.Size(220, 65);
+            this.btnAdminPanel.TabIndex = 6;
+            this.btnAdminPanel.Text = "       Увійти як адмін";
+            this.btnAdminPanel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAdminPanel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnAdminPanel.UseVisualStyleBackColor = false;
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1208, 893);
+            this.Controls.Add(this.btnAdminPanel);
+            this.Controls.Add(this.btnMasterPanel);
+            this.Controls.Add(this.btnDriverPanel);
+            this.Controls.Add(this.btnOperatorPanel);
+            this.Controls.Add(this.btnReturn);
             this.Controls.Add(this.pnSignUp);
             this.Controls.Add(this.pnLogin);
             this.Controls.Add(this.txtPassword);
@@ -466,5 +564,10 @@ namespace CourseWorkSidebar
         private Button btnLogin;
         private TextBox txtPassword;
         private TextBox txtUsername;
+        private Button btnReturn;
+        private Button btnOperatorPanel;
+        private Button btnMasterPanel;
+        private Button btnDriverPanel;
+        private Button btnAdminPanel;
     }
 }
