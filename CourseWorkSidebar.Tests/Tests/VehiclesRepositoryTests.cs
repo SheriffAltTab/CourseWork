@@ -5,6 +5,7 @@ using System.Data.Entity;
 using CourseWorkSidebar.DataAccess;
 using CourseWorkSidebar.Models;
 using System.Linq;
+using System;
 
 namespace CourseWorkSidebar.Tests
 {
@@ -20,7 +21,7 @@ namespace CourseWorkSidebar.Tests
         {
             var vehicles = new List<Vehicle>
             {
-                new Vehicle { VehicleID = 1, LicensePlate = "AB123CD", Brand = "Toyota", Model = "Corolla", Year = 2020 }
+                new Vehicle { VehicleID = 1, LicensePlate = "AB123CD", Brand = "Toyota", Model = "Corolla", Year = 2020, LastServiceDate = DateTime.Now.AddMonths(-1), LastServiceDetails = "Oil change" }
             };
             _mockVehiclesDbSet = MockHelpers.CreateMockDbSet(vehicles);
             _mockContext = new Mock<DatabaseContext>();
@@ -65,6 +66,21 @@ namespace CourseWorkSidebar.Tests
             // Assert
             _mockVehiclesDbSet.Verify(m => m.Remove(It.IsAny<Vehicle>()), Times.Once);
             _mockContext.Verify(m => m.SaveChanges(), Times.Once);
+        }
+
+        [TestMethod]
+        public void GetVehicleById_WhenCalled_ReturnsCorrectVehicle()
+        {
+            // Arrange
+            var vehicle = new Vehicle { VehicleID = 1, LicensePlate = "AB123CD", Brand = "Toyota", Model = "Corolla", Year = 2020 };
+            _mockVehiclesDbSet.Setup(m => m.Find(It.IsAny<int>())).Returns(vehicle);
+
+            // Act
+            var result = _repository.GetVehicleById(1);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(vehicle.VehicleID, result.VehicleID);
         }
     }
 }

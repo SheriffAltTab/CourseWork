@@ -331,7 +331,7 @@ namespace CourseWorkSidebar
 
             using (var writer = new StreamWriter(reportPath, false, Encoding.UTF8))
             {
-                writer.WriteLine("ID,Ім'я,Прізвище,Дата народження,Дата прийняття на роботу");
+                writer.WriteLine("ID,Ім'я,Прізвище,Дата народження,Дата прийняття на роботу,Робочі дні");
                 foreach (var operatorData in _currentOperatorList)
                 {
                     writer.WriteLine($"{operatorData.OperatorID},{operatorData.FirstName},{operatorData.LastName},{operatorData.BirthDate.ToShortDateString()}," +

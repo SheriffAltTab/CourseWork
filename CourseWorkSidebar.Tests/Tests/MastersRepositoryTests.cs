@@ -4,6 +4,7 @@ using Moq;
 using System.Data.Entity;
 using CourseWorkSidebar.DataAccess;
 using CourseWorkSidebar.Models;
+using System.Linq;
 
 namespace CourseWorkSidebar.Tests
 {
@@ -64,6 +65,36 @@ namespace CourseWorkSidebar.Tests
             // Assert
             _mockMastersDbSet.Verify(m => m.Remove(It.IsAny<Master>()), Times.Once);
             _mockContext.Verify(m => m.SaveChanges(), Times.Once);
+        }
+
+        [TestMethod]
+        public void GetMasterById_WhenMasterExists_ReturnsMaster()
+        {
+            // Arrange
+            var master = new Master { MasterID = 1, FirstName = "John", LastName = "Doe", BirthDate = new System.DateTime(1990, 1, 1), HireDate = new System.DateTime(2022, 1, 1), Specialty = "Mechanic" };
+            _mockMastersDbSet.Setup(m => m.Find(It.IsAny<int>())).Returns(master);
+
+            // Act
+            var result = _repository.GetMasterById(1);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("John", result.FirstName);
+        }
+
+        [TestMethod]
+        public void GetMasterById_WhenMasterDoesNotExist_ReturnsNull()
+        {
+            // Arrange
+            _mockMastersDbSet = MockHelpers.CreateMockDbSet(new List<Master>());
+            _mockContext.Setup(m => m.Masters).Returns(_mockMastersDbSet.Object);
+            _mockMastersDbSet.Setup(m => m.Find(It.IsAny<int>())).Returns((Master)null);
+
+            // Act
+            var result = _repository.GetMasterById(1);
+
+            // Assert
+            Assert.IsNull(result);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using CourseWorkSidebar.Models;
@@ -8,6 +9,11 @@ namespace CourseWorkSidebar.DataAccess
     public class FaultRepository
     {
         private readonly DatabaseContext _context;
+
+        public FaultRepository(DatabaseContext context)
+        {
+            _context = context;
+        }
 
         public FaultRepository()
         {

@@ -19,7 +19,7 @@ namespace CourseWorkSidebar.Tests
         {
             var operators = new List<Operator>
             {
-                new Operator { OperatorID = 1, FirstName = "John", LastName = "Smith", BirthDate = new System.DateTime(1990, 1, 1), HireDate = new System.DateTime(2022, 1, 1) }
+                new Operator { OperatorID = 1, FirstName = "John", LastName = "Smith", BirthDate = new System.DateTime(1990, 1, 1), HireDate = new System.DateTime(2022, 1, 1), WorkingDays = "Mon, Tue, Wed" }
             };
             _mockOperatorsDbSet = MockHelpers.CreateMockDbSet(operators);
             _mockContext = new Mock<DatabaseContext>();
@@ -31,7 +31,7 @@ namespace CourseWorkSidebar.Tests
         public void AddOperator_WhenCalled_AddsOperatorToContext()
         {
             // Arrange
-            var @operator = new Operator { OperatorID = 2, FirstName = "Jane", LastName = "Doe", BirthDate = new System.DateTime(1992, 2, 2), HireDate = new System.DateTime(2022, 2, 2) };
+            var @operator = new Operator { OperatorID = 2, FirstName = "Jane", LastName = "Doe", BirthDate = new System.DateTime(1992, 2, 2), HireDate = new System.DateTime(2022, 2, 2), WorkingDays = "Thu, Fri" };
 
             // Act
             _repository.AddOperator(@operator);
@@ -64,6 +64,36 @@ namespace CourseWorkSidebar.Tests
             // Assert
             _mockOperatorsDbSet.Verify(m => m.Remove(It.IsAny<Operator>()), Times.Once);
             _mockContext.Verify(m => m.SaveChanges(), Times.Once);
+        }
+
+        [TestMethod]
+        public void GetOperatorById_WhenOperatorExists_ReturnsOperator()
+        {
+            // Arrange
+            var @operator = new Operator { OperatorID = 1, FirstName = "John", LastName = "Smith", BirthDate = new System.DateTime(1990, 1, 1), HireDate = new System.DateTime(2022, 1, 1) };
+            _mockOperatorsDbSet.Setup(m => m.Find(It.IsAny<int>())).Returns(@operator);
+
+            // Act
+            var result = _repository.GetOperatorById(1);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(1, result.OperatorID);
+        }
+
+        [TestMethod]
+        public void GetOperatorById_WhenOperatorDoesNotExist_ReturnsNull()
+        {
+            // Arrange
+            _mockOperatorsDbSet = MockHelpers.CreateMockDbSet(new List<Operator>());
+            _mockContext.Setup(m => m.Operators).Returns(_mockOperatorsDbSet.Object);
+            _mockOperatorsDbSet.Setup(m => m.Find(It.IsAny<int>())).Returns((Operator)null);
+
+            // Act
+            var result = _repository.GetOperatorById(1);
+
+            // Assert
+            Assert.IsNull(result);
         }
     }
 }

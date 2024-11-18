@@ -28,7 +28,17 @@ namespace CourseWorkSidebar.Tests
         public void AddDriver_WhenCalled_AddsDriverToContext()
         {
             // Arrange
-            var driver = new Driver { DriverID = 1, FirstName = "John", LastName = "Doe" };
+            var driver = new Driver
+            {
+                DriverID = 1,
+                FirstName = "John",
+                LastName = "Doe",
+                BirthDate = new System.DateTime(1985, 1, 1),
+                LicenseNumber = "A123456",
+                HireDate = System.DateTime.Now,
+                WorkingDays = "Пн, Вт, Ср",
+                WorkingAreas = "Центр, Дружба"
+            };
 
             // Act
             _repository.AddDriver(driver);
@@ -73,6 +83,40 @@ namespace CourseWorkSidebar.Tests
             // Assert
             _mockDriversDbSet.Verify(m => m.Remove(It.IsAny<Driver>()), Times.Once);
             _mockContext.Verify(m => m.SaveChanges(), Times.Once);
+        }
+
+        [TestMethod]
+        public void GetDriverById_WhenDriverExists_ReturnsDriver()
+        {
+            // Arrange
+            var driver = new Driver { DriverID = 1, FirstName = "John", LastName = "Doe" };
+            var drivers = new List<Driver> { driver };
+            _mockDriversDbSet = MockHelpers.CreateMockDbSet(drivers);
+            _mockContext.Setup(m => m.Drivers).Returns(_mockDriversDbSet.Object);
+            _mockDriversDbSet.Setup(m => m.Find(It.IsAny<int>())).Returns(driver);
+
+            // Act
+            var result = _repository.GetDriverById(1);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("John", result.FirstName);
+            Assert.AreEqual("Doe", result.LastName);
+        }
+
+        [TestMethod]
+        public void GetDriverById_WhenDriverDoesNotExist_ReturnsNull()
+        {
+            // Arrange
+            _mockDriversDbSet = MockHelpers.CreateMockDbSet(new List<Driver>());
+            _mockContext.Setup(m => m.Drivers).Returns(_mockDriversDbSet.Object);
+            _mockDriversDbSet.Setup(m => m.Find(It.IsAny<int>())).Returns((Driver)null);
+
+            // Act
+            var result = _repository.GetDriverById(1);
+
+            // Assert
+            Assert.IsNull(result);
         }
     }
 }

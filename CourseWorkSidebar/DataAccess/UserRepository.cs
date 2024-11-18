@@ -29,7 +29,6 @@ namespace CourseWorkSidebar.DataAccess
             {
                 user.PasswordHash = HashPassword(user.PasswordHash);
                 
-                // Додаємо роль за замовчуванням, якщо вона не задана
                 if (string.IsNullOrEmpty(user.Role))
                 {
                     user.Role = "Адміністратор";

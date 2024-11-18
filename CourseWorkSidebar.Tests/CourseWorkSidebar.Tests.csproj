@@ -152,6 +152,7 @@
     <Compile Include="Tests\DriversRepositoryTests.cs" />
     <Compile Include="Tests\MastersRepositoryTests.cs" />
     <Compile Include="Tests\OperatorsRepositoryTests.cs" />
+    <Compile Include="Tests\FaultRepositoryTests.cs" />
     <Compile Include="Tests\UserRepositoryTests.cs" />
     <Compile Include="Tests\VehiclesRepositoryTests.cs" />
   </ItemGroup>
